@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 3:27 PM 2023/2/6
  * @Description 负责和ChatGpt交互生成内容
  */
@@ -55,7 +55,7 @@ public class ContentController {
             log.info("Q: {}, A: {}", question, textCompletion);
             if(CollectionUtils.isEmpty(textCompletion.getChoices())
                     || textCompletion.getChoices().get(0).getText().isEmpty()) {
-                return new Response<String>().fail("被小主难住了，这个问题我不知道怎么回答---");
+                return Response.fail("ChatGpt服务繁忙，访问超时了...");
             } else {
                 String answer = textCompletion.getChoices().get(0).getText();
                 // 写入记录
@@ -66,11 +66,11 @@ public class ContentController {
                     tblChat.setUserId(userId);
                     tblChatService.insert(tblChat);
                 }
-                return new Response<String>().success(answer);
+                return Response.success(answer);
             }
         } catch (Throwable t) {
             log.error("getChat exception, ", t);
-            return new Response<String>().fail(t.getMessage());
+            return Response.fail(t.getMessage());
         }
     }
 
@@ -86,7 +86,7 @@ public class ContentController {
             ImageResponse imageGeneration = chatGptService.createImageGeneration(imageRequest);
             log.info("term: {}, res: {}", term, imageGeneration);
             if(CollectionUtils.isEmpty(imageGeneration.getData())) {
-                return new Response<String>().fail("被小主难住了，这个关键词有点难呀---");
+                return Response.fail("ChatGpt服务繁忙，访问超时了...");
             } else {
                 String url = imageGeneration.getData().get(0).getUrl();
                 if(!drawRequest.debugMode(req)) {
@@ -96,11 +96,11 @@ public class ContentController {
                     tblDraw.setUserId(userId);
                     tblDrawService.insert(tblDraw);
                 }
-                return new Response<String>().success(url);
+                return Response.success(url);
             }
         } catch (Throwable t) {
             log.error("getPicture exception, ", t);
-            return new Response<String>().fail(t.getMessage());
+            return Response.fail(t.getMessage());
         }
     }
 }

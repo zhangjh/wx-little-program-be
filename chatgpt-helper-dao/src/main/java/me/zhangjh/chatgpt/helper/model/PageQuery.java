@@ -3,7 +3,7 @@ package me.zhangjh.chatgpt.helper.model;
 import lombok.Data;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 4:36 PM 2023/2/4
  * @Description
  */

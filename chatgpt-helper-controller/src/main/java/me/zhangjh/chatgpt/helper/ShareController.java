@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 3:13 PM 2023/2/6
  * @Description
  */
@@ -42,17 +42,17 @@ public class ShareController {
             TblShare sharedItem = tblShareService.queryByQuery(tblShare);
             if(sharedItem != null) {
                 log.info("重复发起分享，itemId: {}", itemRequest.getItemId());
-                return new Response<Boolean>().success(true);
+                return Response.success(true);
             }
             tblShare.setTag(itemRequest.getTag());
             tblShare.setShareType(itemRequest.getShareType());
             tblShare.setTarget(itemRequest.getTarget());
 
             tblShareService.insert(tblShare);
-            return new Response<Boolean>().success(true);
+            return Response.success(true);
         } catch (Throwable t) {
             log.error("shareItem exception,", t);
-            return new Response<Boolean>().fail(t.getMessage());
+            return Response.fail(t.getMessage());
         }
     }
 
@@ -75,10 +75,10 @@ public class ShareController {
             pageQuery.setPageIndex(itemRequest.getPageIndex());
             pageQuery.setPageSize(itemRequest.getPageSize());
             PageDTO<TblShare> pageDTO = tblShareService.paginQuery(pageQuery);
-            return new Response<List<TblShare>>().success(pageDTO.getData());
+            return Response.success(pageDTO.getData());
         } catch (Throwable t) {
             log.error("getShareItems exception, ", t);
-            return new Response<List<TblShare>>().fail(t.getMessage());
+            return Response.fail(t.getMessage());
         }
     }
 }
