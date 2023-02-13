@@ -4,7 +4,7 @@ work_dir=$(pwd)
 cd "${work_dir}" || exit 1
 
 pid=$(ps -ef | grep java | grep chatgpt-helper | awk '{print $2}')
-if [[ "${pid}" != "" ]];then
+if [[ "X${pid}" != "X" ]];then
   kill "${pid}"
 fi
 
