@@ -9,6 +9,7 @@ CREATE TABLE tbl_share
     `item_id`     VARCHAR(255) COMMENT '作品id',
     `tag`         VARCHAR(255) COMMENT '分享标签',
     `share_type`  TINYINT(1) COMMENT '分享类型',
+    `biz_status`  TINYINT(1) COMMENT '审核状态',
     `target`      VARCHAR(255) COMMENT '分享目的地',
     PRIMARY KEY (id)
 ) COMMENT = '作品分享';
