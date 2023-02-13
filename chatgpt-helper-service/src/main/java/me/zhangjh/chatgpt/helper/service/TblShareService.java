@@ -5,7 +5,7 @@ import me.zhangjh.chatgpt.helper.model.PageQuery;
 import me.zhangjh.chatgpt.helper.model.TblShare;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 4:52 PM 2023/2/4
  * @Description
  */

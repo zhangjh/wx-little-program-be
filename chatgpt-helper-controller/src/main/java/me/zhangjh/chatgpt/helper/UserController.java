@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 3:14 PM 2023/2/6
  * @Description 用户相关
  */
@@ -41,10 +41,10 @@ public class UserController {
             userRequest.check();
 
             TblAccount tblAccount = tblAccountService.queryById(userId);
-            return new Response<TblAccount>().success(tblAccount);
+            return Response.success(tblAccount);
         } catch (Throwable t) {
             log.error("queryUserById exception, ", t);
-            return new Response<TblAccount>().fail(t.getMessage());
+            return Response.fail(t.getMessage());
         }
     }
 
@@ -62,10 +62,10 @@ public class UserController {
             query.setPageSize(userRequest.getPageSize());
 
             PageDTO<TblChat> tblChatPageDTO = tblChatService.paginQuery(query);
-            return new Response<List<TblChat>>().success(tblChatPageDTO.getData());
+            return Response.success(tblChatPageDTO.getData());
         } catch (Throwable t) {
             log.error("queryChatsByUserId exception, ", t);
-            return new Response<List<TblChat>>().fail(t.getMessage());
+            return Response.fail(t.getMessage());
         }
     }
 

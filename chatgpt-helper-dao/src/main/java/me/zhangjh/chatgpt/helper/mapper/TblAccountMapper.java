@@ -4,7 +4,7 @@ import me.zhangjh.chatgpt.helper.model.TblAccount;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 4:40 PM 2023/2/4
  * @Description
  */
