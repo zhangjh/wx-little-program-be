@@ -21,7 +21,7 @@ import java.util.List;
  * @Description
  */
 @RestController
-@RequestMapping("/chatHelper")
+@RequestMapping("/wx/chatHelper")
 @CrossOrigin
 @Slf4j
 public class ShareController {

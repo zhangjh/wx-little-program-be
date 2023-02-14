@@ -23,7 +23,7 @@ import java.util.List;
  * @Description 用户相关
  */
 @RestController
-@RequestMapping("/chatHelper")
+@RequestMapping("/wx/chatHelper")
 @CrossOrigin
 @Slf4j
 public class UserController {

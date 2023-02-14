@@ -30,7 +30,7 @@ import java.util.List;
  * @Description 负责和ChatGpt交互生成内容
  */
 @RestController
-@RequestMapping("/chatHelper")
+@RequestMapping("/wx/chatHelper")
 @CrossOrigin
 @Slf4j
 public class ContentController {
