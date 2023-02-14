@@ -15,6 +15,8 @@ import me.zhangjh.chatgpt.helper.service.TblChatService;
 import me.zhangjh.chatgpt.helper.service.TblDefaultQuestionService;
 import me.zhangjh.chatgpt.helper.service.TblDrawService;
 import me.zhangjh.chatgpt.helper.vo.Response;
+import me.zhangjh.chatgpt.util.HttpClientUtil;
+import org.apache.http.client.config.RequestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,6 +36,16 @@ import java.util.List;
 @CrossOrigin
 @Slf4j
 public class ContentController {
+
+    {
+        HttpClientUtil.setRequestConfig(RequestConfig.custom()
+                .setConnectTimeout(5000)
+                // there may be many content returned, set long socket time out
+                .setSocketTimeout(10 * 60 * 1000)
+                .setConnectionRequestTimeout(5000)
+                .build());
+    }
+
     @Autowired
     private ChatGptService chatGptService;
 
