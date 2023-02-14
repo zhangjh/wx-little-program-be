@@ -1,5 +1,6 @@
 package me.zhangjh.chatgpt.helper;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.chatgpt.client.ChatGptService;
 import me.zhangjh.chatgpt.dto.request.ImageRequest;
@@ -79,7 +80,7 @@ public class ContentController {
             textRequest.setPrompt(question);
             textRequest.setTemperature(0.5);
             TextResponse textCompletion = chatGptService.createTextCompletion(textRequest);
-            log.info("Q: {}, A: {}", question, textCompletion);
+            log.info("Q: {}, A: {}", question, JSONObject.toJSONString(textCompletion));
             if(CollectionUtils.isEmpty(textCompletion.getChoices())
                     || textCompletion.getChoices().get(0).getText().isEmpty()) {
                 return Response.fail("ChatGpt服务繁忙，访问超时了...");
@@ -97,6 +98,9 @@ public class ContentController {
             }
         } catch (Throwable t) {
             log.error("getChat exception, ", t);
+            if(t instanceof RuntimeException) {
+                return Response.fail("ChatGpt服务限流，访问被限制了...");
+            }
             return Response.fail(t.getMessage());
         }
     }
@@ -111,7 +115,7 @@ public class ContentController {
             String term = drawRequest.getTerm();
             ImageRequest imageRequest = new ImageRequest(term);
             ImageResponse imageGeneration = chatGptService.createImageGeneration(imageRequest);
-            log.info("term: {}, res: {}", term, imageGeneration);
+            log.info("term: {}, res: {}", term, JSONObject.toJSONString(imageGeneration));
             if(CollectionUtils.isEmpty(imageGeneration.getData())) {
                 return Response.fail("ChatGpt服务繁忙，访问超时了...");
             } else {
@@ -127,6 +131,9 @@ public class ContentController {
             }
         } catch (Throwable t) {
             log.error("getPicture exception, ", t);
+            if(t instanceof RuntimeException) {
+                return Response.fail("ChatGpt服务限流，访问被限制了...");
+            }
             return Response.fail(t.getMessage());
         }
     }
