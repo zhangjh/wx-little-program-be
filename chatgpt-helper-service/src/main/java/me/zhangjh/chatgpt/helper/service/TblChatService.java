@@ -17,7 +17,7 @@ public interface TblChatService {
      * @param id 主键
      * @return 实例对象
      */
-    TblChat queryById(String id);
+    TblChat queryById(Long id);
     /**
      * 分页查询
      *
@@ -39,5 +39,5 @@ public interface TblChatService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(String id);
+    boolean deleteById(Long id);
 }

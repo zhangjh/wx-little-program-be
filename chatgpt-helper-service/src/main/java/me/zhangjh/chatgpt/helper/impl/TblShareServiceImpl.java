@@ -22,7 +22,7 @@ public class TblShareServiceImpl implements TblShareService {
     private TblShareMapper tblShareMapper;
 
     @Override
-    public TblShare queryById(String id) {
+    public TblShare queryById(Long id) {
         return tblShareMapper.queryById(id);
     }
 
@@ -50,7 +50,7 @@ public class TblShareServiceImpl implements TblShareService {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(Long id) {
         return tblShareMapper.deleteById(id) > 0;
     }
 }

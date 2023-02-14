@@ -16,7 +16,7 @@ public interface TblShareService {
      * @param id 主键
      * @return 实例对象
      */
-    TblShare queryById(String id);
+    TblShare queryById(Long id);
 
     /**
      * 通过条件查询单条数据
@@ -45,5 +45,5 @@ public interface TblShareService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(String id);
+    boolean deleteById(Long id);
 }

@@ -20,7 +20,7 @@ public interface TblDrawMapper {
      * @param id 主键
      * @return 实例对象
      */
-    TblDraw queryById(String id);
+    TblDraw queryById(Long id);
 
     /**
      * 分页查询指定行数据
@@ -46,5 +46,5 @@ public interface TblDrawMapper {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(String id);
+    int deleteById(Long id);
 }

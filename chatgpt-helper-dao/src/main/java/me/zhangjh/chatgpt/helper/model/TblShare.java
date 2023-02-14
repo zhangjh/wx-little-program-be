@@ -12,7 +12,7 @@ import java.sql.Date;
 @Data
 public class TblShare {
 
-    private String id ;
+    private Long id ;
     private Date createTime ;
     private Date modifyTime ;
     private String isDeleted ;

@@ -5,21 +5,18 @@ import lombok.Data;
 import java.sql.Date;
 
 /**
- * @author njhxzhangjihong@126.com
- * @date 4:33 PM 2023/2/4
+ * @author zhangjh451@midea.com
+ * @date 10:08 AM 2023/2/14
  * @Description
  */
 @Data
-public class TblChat {
+public class TblQuestion {
 
-    private Long id ;
+    private Long id;
     private Date createTime ;
     private Date modifyTime ;
     private String isDeleted ;
 
-    private String userId;
-
     private String question;
 
-    private String answer;
 }

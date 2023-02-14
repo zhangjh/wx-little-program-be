@@ -22,7 +22,7 @@ public class TblDrawServiceImpl implements TblDrawService {
     private TblDrawMapper tblDrawMapper;
 
     @Override
-    public TblDraw queryById(String id) {
+    public TblDraw queryById(Long id) {
         return tblDrawMapper.queryById(id);
     }
 
@@ -43,7 +43,7 @@ public class TblDrawServiceImpl implements TblDrawService {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(Long id) {
         return tblDrawMapper.deleteById(id) > 0;
     }
 }

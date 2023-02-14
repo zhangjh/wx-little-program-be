@@ -22,7 +22,7 @@ public class TblChatServiceImpl implements TblChatService {
     private TblChatMapper tblChatMapper;
 
     @Override
-    public TblChat queryById(String id) {
+    public TblChat queryById(Long id) {
         return tblChatMapper.queryById(id);
     }
 
@@ -43,7 +43,7 @@ public class TblChatServiceImpl implements TblChatService {
     }
 
     @Override
-    public boolean deleteById(String id) {
+    public boolean deleteById(Long id) {
         return tblChatMapper.deleteById(id) > 0;
     }
 }

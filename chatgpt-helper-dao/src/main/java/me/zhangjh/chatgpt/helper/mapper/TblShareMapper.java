@@ -19,7 +19,7 @@ public interface TblShareMapper {
      * @param id 主键
      * @return 实例对象
      */
-    TblShare queryById(String id);
+    TblShare queryById(Long id);
 
     /**
      * 通过条件查询单条数据
@@ -59,5 +59,5 @@ public interface TblShareMapper {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(String id);
+    int deleteById(Long id);
 }

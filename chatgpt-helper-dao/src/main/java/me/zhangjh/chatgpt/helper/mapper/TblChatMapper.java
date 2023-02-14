@@ -19,7 +19,7 @@ public interface TblChatMapper {
      * @param id 主键
      * @return 实例对象
      */
-    TblChat queryById(String id);
+    TblChat queryById(Long id);
     /**
      * 分页查询指定行数据
      *
@@ -44,5 +44,5 @@ public interface TblChatMapper {
      * @param id 主键
      * @return 影响行数
      */
-    int deleteById(String id);
+    int deleteById(Long id);
 }

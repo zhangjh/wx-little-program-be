@@ -16,7 +16,7 @@ public interface TblDrawService {
      * @param id 主键
      * @return 实例对象
      */
-    TblDraw queryById(String id);
+    TblDraw queryById(Long id);
     /**
      * 分页查询
      *
@@ -38,5 +38,5 @@ public interface TblDrawService {
      * @param id 主键
      * @return 是否成功
      */
-    boolean deleteById(String id);
+    boolean deleteById(Long id);
 }

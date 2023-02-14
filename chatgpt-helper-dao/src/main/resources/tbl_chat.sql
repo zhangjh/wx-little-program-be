@@ -6,7 +6,7 @@ CREATE TABLE tbl_chat
     `modify_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `is_deleted`  TINYINT(1) DEFAULT 0  NOT NULL COMMENT '逻辑删除',
     `user_id`     VARCHAR(255) COMMENT '用户id',
-    `question`    VARCHAR(255) COMMENT '问题',
+    `question`    VARCHAR(1024) COMMENT '问题',
     `answer`      TEXT COMMENT '回答',
     PRIMARY KEY (id)
 ) COMMENT = 'AI问答';

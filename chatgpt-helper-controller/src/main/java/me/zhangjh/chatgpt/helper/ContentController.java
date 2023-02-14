@@ -8,9 +8,11 @@ import me.zhangjh.chatgpt.dto.response.ImageResponse;
 import me.zhangjh.chatgpt.dto.response.TextResponse;
 import me.zhangjh.chatgpt.helper.model.TblChat;
 import me.zhangjh.chatgpt.helper.model.TblDraw;
+import me.zhangjh.chatgpt.helper.model.TblQuestion;
 import me.zhangjh.chatgpt.helper.request.ChatRequest;
 import me.zhangjh.chatgpt.helper.request.DrawRequest;
 import me.zhangjh.chatgpt.helper.service.TblChatService;
+import me.zhangjh.chatgpt.helper.service.TblDefaultQuestionService;
 import me.zhangjh.chatgpt.helper.service.TblDrawService;
 import me.zhangjh.chatgpt.helper.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author njhxzhangjihong@126.com
@@ -39,6 +42,18 @@ public class ContentController {
 
     @Autowired
     private TblDrawService tblDrawService;
+
+    @Autowired
+    private TblDefaultQuestionService tblDefaultQuestionService;
+
+    @RequestMapping("/defaultQuestions")
+    public Response<List<TblQuestion>> getDefaultQuestions() {
+        try {
+            return Response.success(tblDefaultQuestionService.queryRandom());
+        } catch (Throwable t) {
+            return Response.fail(t.getMessage());
+        }
+    }
 
     @RequestMapping("/chat")
     public Response<String> getChat(ChatRequest chatRequest, HttpServletRequest req) {

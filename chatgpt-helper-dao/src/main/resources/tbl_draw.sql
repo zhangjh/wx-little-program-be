@@ -6,8 +6,8 @@ CREATE TABLE tbl_draw
     `modify_time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
     `is_deleted`  TINYINT(1) DEFAULT 0  NOT NULL COMMENT '逻辑删除',
     `user_id`     VARCHAR(255) COMMENT '用户id',
-    `term`        VARCHAR(255) COMMENT '关键词',
-    `url`         VARCHAR(255) COMMENT '图片url',
+    `term`        VARCHAR(1024) COMMENT '关键词',
+    `url`         VARCHAR(1024) COMMENT '图片url',
     PRIMARY KEY (id)
 ) COMMENT = 'AI作画';
 

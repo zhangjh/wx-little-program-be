@@ -11,6 +11,7 @@ import java.sql.Date;
  */
 @Data
 public class TblAccount {
+
     private String id ;
     private Date createTime ;
     private Date modifyTime ;
