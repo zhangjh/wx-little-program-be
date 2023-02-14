@@ -64,7 +64,7 @@ public class ContentController {
 
             String question = chatRequest.getQuestion();
             TextRequest textRequest = new TextRequest();
-            textRequest.setPrompt("Q:" + question);
+            textRequest.setPrompt(question);
             textRequest.setTemperature(0.5);
             TextResponse textCompletion = chatGptService.createTextCompletion(textRequest);
             log.info("Q: {}, A: {}", question, textCompletion);
