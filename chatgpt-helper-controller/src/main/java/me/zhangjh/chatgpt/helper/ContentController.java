@@ -85,7 +85,7 @@ public class ContentController {
                     || textCompletion.getChoices().get(0).getText().isEmpty()) {
                 return Response.fail("ChatGpt服务繁忙，访问超时了...");
             } else {
-                String answer = textCompletion.getChoices().get(0).getText();
+                String answer = textCompletion.getChoices().get(0).getText().trim();
                 // 写入记录
                 if(!chatRequest.debugMode(req)) {
                     TblChat tblChat = new TblChat();
@@ -119,7 +119,7 @@ public class ContentController {
             if(CollectionUtils.isEmpty(imageGeneration.getData())) {
                 return Response.fail("ChatGpt服务繁忙，访问超时了...");
             } else {
-                String url = imageGeneration.getData().get(0).getUrl();
+                String url = imageGeneration.getData().get(0).getUrl().trim();
                 if(!drawRequest.debugMode(req)) {
                     TblDraw tblDraw = new TblDraw();
                     tblDraw.setTerm(term);
