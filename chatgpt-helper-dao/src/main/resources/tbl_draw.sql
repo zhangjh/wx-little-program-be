@@ -12,3 +12,13 @@ CREATE TABLE tbl_draw
 ) COMMENT = 'AI作画';
 
 CREATE INDEX idx_user_id ON tbl_draw(user_id);
+
+INSERT INTO tbl_draw (user_id, term, url) values (-1, "海边散步的情侣 动漫风格 高清画质", "https://wx2.sinaimg.cn/bmiddle/62d95157ly1hb4gl6pkfkj20sg0sg1kx.jpg");
+INSERT INTO tbl_draw (user_id, term, url) values (-1, "给流浪地球制作一款精美的科幻风格海报", "https://wx2.sinaimg.cn/bmiddle/62d95157ly1hb4h8cwsjgj20sg0sgb29.jpg");
+INSERT INTO tbl_draw (user_id, term, url) values (-1, "一只火红的狐狸在吃紫色的葡萄，油画风格", "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb4go2zg0qj20sg0sge81.jpg");
+INSERT INTO tbl_draw (user_id, term, url) values (-1, "Rainforests inside a glass house,lush trees,vines twing around the shelves,greg rutkowski and james gurney and Thomas kinkade", "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb4h32kokjj20sg0sgkjl.jpg");
+INSERT INTO tbl_draw (user_id, term, url) values (-1, "orbital space station,science and technology,Jonn Berkey,highly detailed,artstation", "https://wx3.sinaimg.cn/bmiddle/62d95157ly1hb4h365x97j20sg0sghdt.jpg");
+INSERT INTO tbl_draw (user_id, term, url) values (-1, "great chinese palace above clouds,morning,distance waterfalls flow down the mountians,fantasy,high-definition,super wide angle,artstation", "https://wx2.sinaimg.cn/bmiddle/62d95157ly1hb4h3ait7hj20sg0sg7wh.jpg");
+INSERT INTO tbl_draw (user_id, term, url) values (-1, "来一张中国水墨画风格的素描，内容是一名渔夫在船上垂钓", "https://wx1.sinaimg.cn/bmiddle/62d95157ly1hb4h3cikthj20sg0sg4qp.jpg");
+INSERT INTO tbl_draw (user_id, term, url) values (-1, "可爱的黄色小猫咪", "https://wx1.sinaimg.cn/bmiddle/62d95157ly1hb4hushdpej20sg0sg4qp.jpg");
+

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.chatgpt.client.ChatGptService;
 import me.zhangjh.chatgpt.dto.request.ImageRequest;
 import me.zhangjh.chatgpt.dto.request.TextRequest;
+import me.zhangjh.chatgpt.dto.response.BizException;
 import me.zhangjh.chatgpt.dto.response.ImageResponse;
 import me.zhangjh.chatgpt.dto.response.TextResponse;
 import me.zhangjh.chatgpt.helper.model.TblChat;
@@ -64,6 +65,17 @@ public class ContentController {
         try {
             return Response.success(tblDefaultQuestionService.queryRandom());
         } catch (Throwable t) {
+            log.error("getDefaultQuestions exception, t:", t);
+            return Response.fail(t.getMessage());
+        }
+    }
+
+    @RequestMapping("/defaultDraws")
+    public Response<List<TblDraw>> getDefaultDraws() {
+        try {
+            return Response.success(tblDrawService.queryRandom());
+        } catch (Throwable t) {
+            log.error("getDefaultDraws exception, t:", t);
             return Response.fail(t.getMessage());
         }
     }
@@ -98,10 +110,13 @@ public class ContentController {
             }
         } catch (Throwable t) {
             log.error("getChat exception, ", t);
+            if(t.getCause() instanceof BizException) {
+                return Response.fail(t.getCause().getMessage());
+            }
             if(t instanceof RuntimeException) {
                 return Response.fail("ChatGpt服务限流，访问被限制了...");
             }
-            return Response.fail(t.getMessage());
+            return Response.fail("未知的服务异常");
         }
     }
 
@@ -131,10 +146,13 @@ public class ContentController {
             }
         } catch (Throwable t) {
             log.error("getPicture exception, ", t);
+            if(t.getCause() instanceof BizException) {
+                return Response.fail(t.getCause().getMessage());
+            }
             if(t instanceof RuntimeException) {
                 return Response.fail("ChatGpt服务限流，访问被限制了...");
             }
-            return Response.fail(t.getMessage());
+            return Response.fail("未知的服务异常");
         }
     }
 }

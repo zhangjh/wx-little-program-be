@@ -1,8 +1,6 @@
 package me.zhangjh.chatgpt.helper.impl;
 
-import me.zhangjh.chatgpt.helper.dto.PageDTO;
 import me.zhangjh.chatgpt.helper.mapper.TblDrawMapper;
-import me.zhangjh.chatgpt.helper.model.PageQuery;
 import me.zhangjh.chatgpt.helper.model.TblDraw;
 import me.zhangjh.chatgpt.helper.service.TblDrawService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +25,19 @@ public class TblDrawServiceImpl implements TblDrawService {
     }
 
     @Override
-    public PageDTO<TblDraw> paginQuery(PageQuery<TblDraw> query) {
-        List<TblDraw> tblDraws = tblDrawMapper.queryByPage(query);
-        long total = tblDrawMapper.count(query);
-        PageDTO<TblDraw> pageDTO = new PageDTO<>();
-        pageDTO.setData(tblDraws);
-        pageDTO.setTotal((int) total);
-        return pageDTO;
+    public List<TblDraw> queryRandom() {
+        return tblDrawMapper.queryRandom();
     }
+
+//    @Override
+//    public PageDTO<TblDraw> paginQuery(PageQuery<TblDraw> query) {
+//        List<TblDraw> tblDraws = tblDrawMapper.queryByPage(query);
+//        long total = tblDrawMapper.count(query);
+//        PageDTO<TblDraw> pageDTO = new PageDTO<>();
+//        pageDTO.setData(tblDraws);
+//        pageDTO.setTotal((int) total);
+//        return pageDTO;
+//    }
 
     @Override
     public TblDraw insert(TblDraw tblDraw) {

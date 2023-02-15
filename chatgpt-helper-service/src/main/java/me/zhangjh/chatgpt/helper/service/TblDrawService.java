@@ -1,8 +1,8 @@
 package me.zhangjh.chatgpt.helper.service;
 
-import me.zhangjh.chatgpt.helper.dto.PageDTO;
-import me.zhangjh.chatgpt.helper.model.PageQuery;
 import me.zhangjh.chatgpt.helper.model.TblDraw;
+
+import java.util.List;
 
 /**
  * @author njhxzhangjihong@126.com
@@ -17,13 +17,20 @@ public interface TblDrawService {
      * @return 实例对象
      */
     TblDraw queryById(Long id);
+
+    /**
+     * 随机返回四条AI作品样例
+     * */
+    List<TblDraw> queryRandom();
+
     /**
      * 分页查询
      *
      * @param query 筛选条件
      * @return 查询结果
      */
-    PageDTO<TblDraw> paginQuery(PageQuery<TblDraw> query);
+//    PageDTO<TblDraw> paginQuery(PageQuery<TblDraw> query);
+
     /**
      * 新增数据
      *

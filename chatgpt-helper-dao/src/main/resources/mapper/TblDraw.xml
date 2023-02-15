@@ -2,4 +2,80 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.zhangjh.chatgpt.helper.mapper.TblDrawMapper">
 
+    <resultMap type="me.zhangjh.chatgpt.helper.model.TblDraw" id="TblDrawMap">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time" />
+        <result property="modifyTime" column="modify_time" />
+        <result property="isDeleted" column="is_deleted" />
+        <result property="term" column="term" />
+        <result property="url" column="url" />
+        <result property="userId" column="user_id" />
+    </resultMap>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `create_time`,
+            `modify_time`,
+            `is_deleted`,
+            `user_id`,
+            `term`,
+            `url`
+        </trim>
+    </sql>
+
+    <insert id="insert" >
+        INSERT INTO `tbl_draw`
+        (
+        <trim suffixOverrides=",">
+            <if test="userId!=null">
+                `user_id`,
+            </if>
+            <if test="term!=null">
+                `term`,
+            </if>
+            <if test="url!=null">
+                `url`
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="userId!=null">
+                #{userId},
+            </if>
+            <if test="term!=null">
+                #{term},
+            </if>
+            <if test="url!=null">
+                #{url},
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <delete id="deleteById">
+        UPDATE `tbl_draw`
+        SET is_deleted = 1
+        WHERE `id` = #{id} and is_deleted = 0;
+    </delete>
+
+    <select id="queryById" resultType="me.zhangjh.chatgpt.helper.model.TblDraw">
+        select
+        <include refid="allResult" />
+        from tbl_draw
+        WHERE id = #{id};
+    </select>
+
+    <select id="queryRandom" resultType="me.zhangjh.chatgpt.helper.model.TblDraw">
+        select
+        <include refid="allResult" />
+        from tbl_draw
+        WHERE id >= RAND() * 0.5 * (SELECT MAX(id) FROM tbl_draw)
+        <!-- 该方法只供查询默认的AI作品样例使用，样例用户id为-1 -->
+        AND user_id = -1
+        LIMIT 4;
+    </select>
+
 </mapper>

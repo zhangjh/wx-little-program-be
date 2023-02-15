@@ -22,13 +22,15 @@ public interface TblDrawMapper {
      */
     TblDraw queryById(Long id);
 
+    List<TblDraw> queryRandom();
+
     /**
      * 分页查询指定行数据
      *
      * @param query  查询条件
      * @return 对象列表
      */
-    List<TblDraw> queryByPage(PageQuery<TblDraw> query);
+//    List<TblDraw> queryByPage(PageQuery<TblDraw> query);
 
     long count(PageQuery<TblDraw> query);
 
