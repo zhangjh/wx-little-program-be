@@ -68,9 +68,9 @@ public class ContentController {
                 "周杰伦有哪些专辑？",
                 "怎样学习人工智能？",
                 "如何计算笛卡尔积？",
-                "怎样制作原子弹？",
+                "如何阅读一本书？",
                 "如何快速学习英语？",
-                "Chatgpt会取代哪些工作吗？",
+                "人工智能会让人类失业吗？",
                 "A股为什么总在3000点徘徊？");
         for (String question : questions) {
             TblQuestion tblQuestion = new TblQuestion();
@@ -82,11 +82,15 @@ public class ContentController {
         draws.put("海边散步的情侣 动漫风格 高清画质", "https://wx2.sinaimg.cn/bmiddle/62d95157ly1hb4gl6pkfkj20sg0sg1kx.jpg");
         draws.put("给流浪地球制作一款精美的科幻风格海报", "https://wx2.sinaimg.cn/bmiddle/62d95157ly1hb4h8cwsjgj20sg0sgb29.jpg");
         draws.put("一只火红的狐狸在吃紫色的葡萄，油画风格", "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb4go2zg0qj20sg0sge81.jpg");
-        draws.put("Rainforests inside a glass house,lush trees,vines twing around the shelves,greg rutkowski and james gurney and Thomas kinkade", "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb4h32kokjj20sg0sgkjl.jpg");
-        draws.put("orbital space station,science and technology,Jonn Berkey,highly detailed,artstation", "https://wx3.sinaimg.cn/bmiddle/62d95157ly1hb4h365x97j20sg0sghdt.jpg");
-        draws.put("great chinese palace above clouds,morning,distance waterfalls flow down the mountians,fantasy,high-definition,super wide angle,artstation", "https://wx2.sinaimg.cn/bmiddle/62d95157ly1hb4h3ait7hj20sg0sg7wh.jpg");
+        draws.put("玻璃房子里的雨林，郁郁葱葱的树木，藤蔓缠绕在架子上，格雷格·鲁特科夫斯基、詹姆斯·格尼和托马斯·金卡德", "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb4h32kokjj20sg0sgkjl.jpg");
+        draws.put("轨道空间站，科学和技术，Jonn Berkey，高度详细", "https://wx3.sinaimg.cn/bmiddle/62d95157ly1hb4h365x97j20sg0sghdt.jpg");
+        draws.put("云上的伟大的中国宫殿，早晨，远处瀑布流下的山，幻想，高清，超广角", "https://wx2.sinaimg.cn/bmiddle/62d95157ly1hb4h3ait7hj20sg0sg7wh.jpg");
         draws.put("来一张中国水墨画风格的素描，内容是一名渔夫在船上垂钓", "https://wx1.sinaimg.cn/bmiddle/62d95157ly1hb4h3cikthj20sg0sg4qp.jpg");
         draws.put("可爱的黄色小猫咪", "https://wx1.sinaimg.cn/bmiddle/62d95157ly1hb4hushdpej20sg0sg4qp.jpg");
+        draws.put("凶猛的老虎 丛林 高清", "https://wx2.sinaimg.cn/bmiddle/62d95157ly1hb5ea25appj20sg0sg4qp.jpg");
+        draws.put("吃竹子的熊猫", "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb5ea6ldb3j20sg0sgb29.jpg");
+        draws.put("亚马孙雨林", "https://wx1.sinaimg.cn/bmiddle/62d95157ly1hb5eed9e58j20sg0sgqv5.jpg");
+        draws.put("雷雨天 闪电的天空", "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb5eeb1ecpj20sg0sg4q6.jpg");
 
         for (Map.Entry<String, String> entry : draws.entrySet()) {
             String key = entry.getKey();
