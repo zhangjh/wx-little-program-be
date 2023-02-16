@@ -17,6 +17,8 @@ public class TblAccount {
     private Date modifyTime ;
     private String isDeleted ;
 
+    private String nickName;
+
     private String avatar;
 
     private Integer extType;

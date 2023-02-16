@@ -5,6 +5,7 @@ import me.zhangjh.chatgpt.helper.dto.PageDTO;
 import me.zhangjh.chatgpt.helper.model.PageQuery;
 import me.zhangjh.chatgpt.helper.model.TblAccount;
 import me.zhangjh.chatgpt.helper.model.TblChat;
+import me.zhangjh.chatgpt.helper.request.AccountRequest;
 import me.zhangjh.chatgpt.helper.request.UserRequest;
 import me.zhangjh.chatgpt.helper.service.TblAccountService;
 import me.zhangjh.chatgpt.helper.service.TblChatService;
@@ -34,6 +35,7 @@ public class UserController {
     @Autowired
     private TblChatService tblChatService;
 
+    @RequestMapping("/queryUserById")
     public Response<TblAccount> queryUserById(UserRequest userRequest, HttpServletRequest req) {
         try {
             String userId = req.getHeader("userId");
@@ -48,6 +50,7 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/queryChatsByUserId")
     public Response<List<TblChat>> queryChatsByUserId(UserRequest userRequest, HttpServletRequest req) {
         try {
             String userId = req.getHeader("userId");
@@ -69,5 +72,23 @@ public class UserController {
         }
     }
 
-
+    @RequestMapping("/saveUser")
+    public Response<Void> saveUser(AccountRequest req) {
+        try {
+            String userId = req.getUserId();
+            String avatar = req.getAvatarUrl();
+            String nickName = req.getNickName();
+            TblAccount tblAccount = new TblAccount();
+            tblAccount.setAvatar(avatar);
+            tblAccount.setNickName(nickName);
+            // 小程序用户
+            tblAccount.setExtType(1);
+            tblAccount.setExtId(userId);
+            tblAccountService.insert(tblAccount);
+            return Response.success(null);
+        } catch (Throwable t) {
+            log.error("saveUser exception, ", t);
+            return Response.fail(t.getMessage());
+        }
+    }
 }

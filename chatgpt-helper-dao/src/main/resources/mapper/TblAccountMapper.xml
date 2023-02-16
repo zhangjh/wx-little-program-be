@@ -7,6 +7,7 @@
         <result property="createTime" column="create_time"/>
         <result property="modifyTime" column="modify_time"/>
         <result property="isDeleted" column="is_deleted"/>
+        <result property="nickName" column="nick_name" />
         <result property="avatar" column="avatar"/>
         <result property="extId" column="extId"/>
         <result property="extType" column="extType"/>
@@ -14,9 +15,12 @@
     </resultMap>
 
     <insert id="insert"  useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO `tbl_account`
+        INSERT IGNORE INTO `tbl_account`
         (
         <trim suffixOverrides=",">
+            <if test="nickName!=null">
+                `nick_name`,
+            </if>
             <if test="avatar!=null">
                 `avatar`,
             </if>
@@ -34,6 +38,9 @@
         VALUES
         (
         <trim suffixOverrides=",">
+            <if test="nickName!=null">
+                #{nickName},
+            </if>
             <if test="avatar!=null">
                 #{avatar},
             </if>
@@ -56,6 +63,9 @@
         <trim suffixOverrides=",">
             <if test="is_deleted != null">
                 `is_deleted` = #{is_deleted},
+            </if>
+            <if test="nickName != null and nickName!=''">
+                `nick_name` = #{nickName},
             </if>
             <if test="avatar != null and avatar!=''">
                 `avatar` = #{avatar},
