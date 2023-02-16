@@ -9,10 +9,10 @@ CREATE TABLE tbl_account
     `is_deleted`  TINYINT(1) DEFAULT 0  NOT NULL COMMENT '逻辑删除',
     `nick_name`   VARCHAR(64) NOT NULL COMMENT '昵称',
     `avatar`      VARCHAR(255) NOT NULL COMMENT '头像',
-    `extId`       VARCHAR(64) NOT NULL COMMENT '外部系统id',
-    `extType`     TINYINT(1) NOT NULL COMMENT '外部系统类型',
+    `ext_id`       VARCHAR(64) NOT NULL COMMENT '外部系统id',
+    `ext_type`     TINYINT(1) NOT NULL COMMENT '外部系统类型',
     `mobile`      VARCHAR(11) NULL COMMENT '手机',
     PRIMARY KEY (id)
 ) COMMENT = '账号信息';
 
-CREATE UNIQUE INDEX uq_extType_extId ON tbl_account(extType, extId);
+CREATE UNIQUE INDEX uq_extType_extId ON tbl_account(ext_type, ext_id, is_deleted);

@@ -9,8 +9,8 @@
         <result property="isDeleted" column="is_deleted"/>
         <result property="nickName" column="nick_name" />
         <result property="avatar" column="avatar"/>
-        <result property="extId" column="extId"/>
-        <result property="extType" column="extType"/>
+        <result property="extId" column="ext_id"/>
+        <result property="extType" column="ext_type"/>
         <result property="mobile" column="mobile"/>
     </resultMap>
 
@@ -25,10 +25,10 @@
                 `avatar`,
             </if>
             <if test="extId!=null">
-                `extId`,
+                `ext_id`,
             </if>
             <if test="extType!=null">
-                `extType`,
+                `ext_type`,
             </if>
             <if test="mobile!=null">
                 `mobile`,
@@ -45,10 +45,10 @@
                 #{avatar},
             </if>
             <if test="extId!=null">
-                #{extId},
+                #{ext_id},
             </if>
             <if test="extType!=null">
-                #{extType},
+                #{ext_type},
             </if>
             <if test="mobile!=null">
                 #{mobile},
