@@ -91,6 +91,7 @@ public class ContentController {
         draws.put("吃竹子的熊猫", "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb5ea6ldb3j20sg0sgb29.jpg");
         draws.put("亚马孙雨林", "https://wx1.sinaimg.cn/bmiddle/62d95157ly1hb5eed9e58j20sg0sgqv5.jpg");
         draws.put("雷雨天 闪电的天空", "https://wx4.sinaimg.cn/bmiddle/62d95157ly1hb5eeb1ecpj20sg0sg4q6.jpg");
+        draws.put("小熊猫", "https://wx1.sinaimg.cn/bmiddle/62d95157ly1hb5erbfyqoj20sg0sghdt.jpg");
 
         for (Map.Entry<String, String> entry : draws.entrySet()) {
             String key = entry.getKey();
