@@ -122,7 +122,7 @@ public class ContentController {
         try {
             List<TblQuestion> res = new ArrayList<>();
             Collections.shuffle(defaultQuestions);
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 12; i++) {
                 res.add(defaultQuestions.get(i));
             }
             return Response.success(res);
