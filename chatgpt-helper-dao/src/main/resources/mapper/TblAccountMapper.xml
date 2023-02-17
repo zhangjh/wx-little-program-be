@@ -25,7 +25,7 @@
                 `avatar`,
             </if>
             <if test="extId!=null">
-                `extId`,
+                `ext_id`,
             </if>
             <if test="extType!=null">
                 `ext_type`,
@@ -45,10 +45,10 @@
                 #{avatar},
             </if>
             <if test="extId!=null">
-                #{ext_id},
+                #{extId},
             </if>
             <if test="extType!=null">
-                #{ext_type},
+                #{extType},
             </if>
             <if test="mobile!=null">
                 #{mobile},
