@@ -158,6 +158,8 @@ public class ContentController {
             TextRequest textRequest = new TextRequest();
             textRequest.setPrompt(question);
             textRequest.setTemperature(0.5);
+            textRequest.setMaxTokens(2048);
+            textRequest.setStop("\n");
             TextResponse textCompletion = chatGptService.createTextCompletion(textRequest);
             log.info("Q: {}, A: {}", question, JSONObject.toJSONString(textCompletion));
             if(CollectionUtils.isEmpty(textCompletion.getChoices())
