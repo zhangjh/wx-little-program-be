@@ -1,7 +1,6 @@
 package me.zhangjh.chatgpt.helper.request;
 
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,7 +20,7 @@ public abstract class BaseRequest {
        if(debugMode(request)) {
            return;
        }
-       Assert.isTrue(StringUtils.isNotEmpty(request.getHeader("userId")), "未登录");
+        Validate.notNull(request.getHeader("userId"), "未登录");
     }
 
     public abstract void check();
