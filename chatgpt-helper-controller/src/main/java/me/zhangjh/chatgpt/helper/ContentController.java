@@ -21,6 +21,7 @@ import org.apache.http.client.config.RequestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -147,7 +148,7 @@ public class ContentController {
         }
     }
 
-    @RequestMapping("/chat")
+    @PostMapping("/chat")
     public Response<String> getChat(ChatRequest chatRequest, HttpServletRequest req) {
         try {
             String userId = req.getHeader("userId");
@@ -159,7 +160,6 @@ public class ContentController {
             textRequest.setPrompt(question);
             textRequest.setTemperature(0.5);
             textRequest.setMaxTokens(2048);
-            textRequest.setStop("\n");
             TextResponse textCompletion = chatGptService.createTextCompletion(textRequest);
             log.info("Q: {}, A: {}", question, JSONObject.toJSONString(textCompletion));
             if(CollectionUtils.isEmpty(textCompletion.getChoices())
@@ -189,7 +189,7 @@ public class ContentController {
         }
     }
 
-    @RequestMapping("/draw")
+    @PostMapping("/draw")
     public Response<String> getPicture(DrawRequest drawRequest, HttpServletRequest req) {
         try {
             String userId = req.getHeader("userId");
