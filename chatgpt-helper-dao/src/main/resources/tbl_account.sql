@@ -14,5 +14,3 @@ CREATE TABLE tbl_account
     `mobile`      VARCHAR(11) NULL COMMENT '手机',
     PRIMARY KEY (id)
 ) COMMENT = '账号信息';
-
-CREATE UNIQUE INDEX uq_extType_extId ON tbl_account(ext_type, ext_id, is_deleted);
