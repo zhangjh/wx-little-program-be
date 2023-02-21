@@ -1,8 +1,9 @@
 package me.zhangjh.wx.program;
 
 import com.alibaba.fastjson.JSONObject;
+import me.zhangjh.share.response.Response;
+import me.zhangjh.share.util.HttpClientUtil;
 import me.zhangjh.wx.program.util.WXDecryptUtil;
-import me.zhangjh.wx.program.vo.Response;
 import me.zhangjh.wx.program.vo.WxUserInfo;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,12 +46,9 @@ public class WxController {
             Assert.isTrue(StringUtils.isNotEmpty(jsCode), "jsCode为空");
             String url = "https://api.weixin.qq.com/sns/jscode2session?appId=";
             url += appId + "&secret=" + appSecret + "&js_code=" + jsCode + "&grant_type=authorization_code";
-            Response<String> response = HttpClientUtil.sendHttpGet(url);
-            if(response.getSuccess()) {
-                WxUserInfo wxUserInfo = JSONObject.parseObject(response.getData(), WxUserInfo.class);
-                return Response.success(wxUserInfo);
-            }
-            return Response.fail(response.getErrorMsg());
+            String response = HttpClientUtil.sendHttp(url);
+            WxUserInfo wxUserInfo = JSONObject.parseObject(response, WxUserInfo.class);
+            return Response.success(wxUserInfo);
         } catch (Throwable t) {
             return Response.fail(t.getMessage());
         }

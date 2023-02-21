@@ -1,6 +1,7 @@
-package me.zhangjh.wx.program;
+package me.zhangjh.wx.program.chatgpt;
 
 import lombok.extern.slf4j.Slf4j;
+import me.zhangjh.share.response.Response;
 import me.zhangjh.wx.program.dto.PageDTO;
 import me.zhangjh.wx.program.model.PageQuery;
 import me.zhangjh.wx.program.model.TblAccount;
@@ -9,7 +10,6 @@ import me.zhangjh.wx.program.request.AccountRequest;
 import me.zhangjh.wx.program.request.UserRequest;
 import me.zhangjh.wx.program.service.TblAccountService;
 import me.zhangjh.wx.program.service.TblChatService;
-import me.zhangjh.wx.program.vo.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;

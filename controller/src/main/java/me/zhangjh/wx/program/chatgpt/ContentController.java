@@ -1,4 +1,4 @@
-package me.zhangjh.wx.program;
+package me.zhangjh.wx.program.chatgpt;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +8,8 @@ import me.zhangjh.chatgpt.dto.request.TextRequest;
 import me.zhangjh.chatgpt.dto.response.BizException;
 import me.zhangjh.chatgpt.dto.response.ImageResponse;
 import me.zhangjh.chatgpt.dto.response.TextResponse;
+import me.zhangjh.share.response.Response;
+import me.zhangjh.share.util.HttpClientUtil;
 import me.zhangjh.wx.program.model.TblChat;
 import me.zhangjh.wx.program.model.TblDraw;
 import me.zhangjh.wx.program.model.TblQuestion;
@@ -15,8 +17,6 @@ import me.zhangjh.wx.program.request.ChatRequest;
 import me.zhangjh.wx.program.request.DrawRequest;
 import me.zhangjh.wx.program.service.TblChatService;
 import me.zhangjh.wx.program.service.TblDrawService;
-import me.zhangjh.wx.program.vo.Response;
-import me.zhangjh.chatgpt.util.HttpClientUtil;
 import org.apache.http.client.config.RequestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
