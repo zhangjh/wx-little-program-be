@@ -9,16 +9,16 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>me.zhangjh</groupId>
-    <artifactId>chatgpt-helper</artifactId>
+    <artifactId>wx-little-program-be</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>chatGptHelper</name>
+    <name>wx-little-program-be</name>
     <packaging>pom</packaging>
 
     <modules>
-        <module>chatgpt-helper-dao</module>
-        <module>chatgpt-helper-service</module>
-        <module>chatgpt-helper-controller</module>
-        <module>chatgpt-helper-start</module>
+        <module>dao</module>
+        <module>service</module>
+        <module>controller</module>
+        <module>start</module>
     </modules>
 
     <properties>
