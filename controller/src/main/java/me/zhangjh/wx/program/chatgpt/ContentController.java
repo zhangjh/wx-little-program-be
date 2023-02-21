@@ -20,10 +20,7 @@ import me.zhangjh.wx.program.service.TblDrawService;
 import org.apache.http.client.config.RequestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -223,5 +220,10 @@ public class ContentController {
             }
             return Response.fail("未知的服务异常");
         }
+    }
+
+    @GetMapping("/getTips")
+    public Response<String> getTips() {
+        return Response.success("当前ChatGpt API服务故障，正在恢复中，小程序暂时无法访问，请等待服务恢复，敬请谅解...");
     }
 }
