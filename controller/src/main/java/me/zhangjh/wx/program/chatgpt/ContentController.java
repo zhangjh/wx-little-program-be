@@ -224,6 +224,6 @@ public class ContentController {
 
     @GetMapping("/getTips")
     public Response<String> getTips() {
-        return Response.success("当前ChatGpt API服务故障，正在恢复中，小程序暂时无法访问，请等待服务恢复，敬请谅解...");
+        return Response.success("点击帮助查看使用说明和常见问题，也可以加群反馈问题和交流~~接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时敬请谅解，可以换个时段再试");
     }
 }
