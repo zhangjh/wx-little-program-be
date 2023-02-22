@@ -1,6 +1,7 @@
 package me.zhangjh.wx.program;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.share.response.Response;
 import me.zhangjh.share.util.HttpClientUtil;
 import me.zhangjh.wx.program.util.WXDecryptUtil;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/wx")
+@Slf4j
 public class WxController {
 
     @Value("${wx.appId}")
@@ -28,29 +30,22 @@ public class WxController {
 
     @RequestMapping("/decodeUserInfo")
     public Response<WxUserInfo> getUserInfo(String encryptedData, String sessionKey, String iv) {
-        try {
-            Assert.isTrue(StringUtils.isNotEmpty(encryptedData), "加密信息为空");
-            Assert.isTrue(StringUtils.isNotEmpty(sessionKey), "sessionKey为空");
-            Assert.isTrue(StringUtils.isNotEmpty(iv), "iv为空");
-            String userInfoStr = WXDecryptUtil.getUserInfo(encryptedData, sessionKey, iv);
-            WxUserInfo wxUserInfo = JSONObject.parseObject(userInfoStr, WxUserInfo.class);
-            return Response.success(wxUserInfo);
-        } catch (Throwable t) {
-            return Response.fail(t.getMessage());
-        }
+        Assert.isTrue(StringUtils.isNotEmpty(encryptedData), "加密信息为空");
+        Assert.isTrue(StringUtils.isNotEmpty(sessionKey), "sessionKey为空");
+        Assert.isTrue(StringUtils.isNotEmpty(iv), "iv为空");
+        String userInfoStr = WXDecryptUtil.getUserInfo(encryptedData, sessionKey, iv);
+        WxUserInfo wxUserInfo = JSONObject.parseObject(userInfoStr, WxUserInfo.class);
+        return Response.success(wxUserInfo);
     }
 
     @RequestMapping("/getOpenId")
     public Response<WxUserInfo> getOpenId(String jsCode) {
-        try {
-            Assert.isTrue(StringUtils.isNotEmpty(jsCode), "jsCode为空");
-            String url = "https://api.weixin.qq.com/sns/jscode2session?appId=";
-            url += appId + "&secret=" + appSecret + "&js_code=" + jsCode + "&grant_type=authorization_code";
-            String response = HttpClientUtil.sendHttp(url);
-            WxUserInfo wxUserInfo = JSONObject.parseObject(response, WxUserInfo.class);
-            return Response.success(wxUserInfo);
-        } catch (Throwable t) {
-            return Response.fail(t.getMessage());
-        }
+        Assert.isTrue(StringUtils.isNotEmpty(jsCode), "jsCode为空");
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appId=";
+        url += appId + "&secret=" + appSecret + "&js_code=" + jsCode + "&grant_type=authorization_code";
+        String response = HttpClientUtil.sendHttp(url);
+        log.info("api.weixin returned response: {}", response);
+        WxUserInfo wxUserInfo = JSONObject.parseObject(response, WxUserInfo.class);
+        return Response.success(wxUserInfo);
     }
 }
