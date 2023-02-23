@@ -57,7 +57,7 @@ public class WxController {
 
     @GetMapping("/checkWxSign")
     @SneakyThrows
-    public boolean checkWxSign(String signature, String timestamp,
+    public String checkWxSign(String signature, String timestamp,
                                         String nonce, String echostr) {
         Assert.isTrue(StringUtils.isNotEmpty(signature), "signature为空");
         Assert.isTrue(StringUtils.isNotEmpty(timestamp), "timestamp为空");
@@ -77,6 +77,9 @@ public class WxController {
             }
             hexString.append(hex);
         }
-        return signature.equals(hexString.toString());
+        if (signature.equals(hexString.toString())) {
+            return echostr;
+        }
+        return "false";
     }
 }
