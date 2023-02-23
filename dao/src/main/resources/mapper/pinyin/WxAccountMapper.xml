@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhangjh.wx.program.mapper.pinyin.WxAccountMapper">
+    <insert id="insertTblAccount"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `tbl_account`
+        (
+        <trim suffixOverrides=",">
+            <if test="name!=null">
+                `name`,
+            </if>
+            <if test="avatar!=null">
+                `avatar`,
+            </if>
+            <if test="extId!=null">
+                `ext_id`,
+            </if>
+            <if test="extType!=null">
+                `ext_type`,
+            </if>
+            <if test="mobile!=null">
+                `mobile`,
+            </if>
+            <if test="productType!=null">
+                `product_type`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="name!=null">
+                #{name},
+            </if>
+            <if test="avatar!=null">
+                #{avatar},
+            </if>
+            <if test="extId!=null">
+                #{extId},
+            </if>
+            <if test="extType!=null">
+                #{extType},
+            </if>
+            <if test="mobile!=null">
+                #{mobile},
+            </if>
+            <if test="productType!=null">
+                #{productType},
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE `tbl_account`
+        SET
+        <trim suffixOverrides=",">
+            <if test="isDeleted != null">
+                `is_deleted` = #{isDeleted},
+            </if>
+            <if test="name != null and name!=''">
+                `name` = #{name},
+            </if>
+            <if test="avatar != null and avatar!=''">
+                `avatar` = #{avatar},
+            </if>
+            <if test="mobile != null and mobile!=''">
+                `mobile` = #{mobile},
+            </if>
+        </trim>
+        WHERE `id` = #{id} and is_deleted = 0
+    </update>
+
+    <resultMap type="me.zhangjh.wx.program.model.pinyin.TblAccount" id="TblAccountMap">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="name" column="name"/>
+        <result property="avatar" column="avatar"/>
+        <result property="extId" column="ext_id"/>
+        <result property="extType" column="ext_type"/>
+        <result property="mobile" column="mobile"/>
+        <result property="productType" column="product_type"/>
+    </resultMap>
+
+    <select id="query" resultMap="TblAccountMap">
+        select *
+        from  `tbl_account`
+        <trim prefix="where" suffixOverrides="and | or">
+            is_deleted = 0 and
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="extId != null and extId!=''">
+                `ext_id` = #{extId} and
+            </if>
+            <if test="extType != null">
+                `ext_type` = #{extType} and
+            </if>
+            <if test="mobile != null and mobile!=''">
+                `mobile` = #{mobile} and
+            </if>
+            <if test="productType != null">
+                `product_type` = #{productType} and
+            </if>
+        </trim>
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `create_time`,
+            `modify_time`,
+            `is_deleted`+0 as `is_deleted`,
+            `name`,
+            `avatar`,
+            `ext_id`,
+            `ext_type`+0 as `ext_type`,
+            `mobile`,
+            `product_type`+0 as `product_type`,
+        </trim>
+    </sql>
+
+</mapper>
