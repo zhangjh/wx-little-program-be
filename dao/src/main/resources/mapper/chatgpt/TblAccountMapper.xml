@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhangjh.wx.program.mapper.chatgpt.TblAccountMapper">
+
+    <resultMap type="me.zhangjh.wx.program.model.chatgpt.TblAccount" id="TblAccount">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="nickName" column="nick_name" />
+        <result property="avatar" column="avatar"/>
+        <result property="extId" column="ext_id"/>
+        <result property="extType" column="ext_type"/>
+        <result property="mobile" column="mobile"/>
+    </resultMap>
+
+    <insert id="insert"  useGeneratedKeys="true" keyProperty="id">
+        INSERT IGNORE INTO `tbl_account`
+        (
+        <trim suffixOverrides=",">
+            <if test="nickName!=null">
+                `nick_name`,
+            </if>
+            <if test="avatar!=null">
+                `avatar`,
+            </if>
+            <if test="extId!=null">
+                `ext_id`,
+            </if>
+            <if test="extType!=null">
+                `ext_type`,
+            </if>
+            <if test="mobile!=null">
+                `mobile`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="nickName!=null">
+                #{nickName},
+            </if>
+            <if test="avatar!=null">
+                #{avatar},
+            </if>
+            <if test="extId!=null">
+                #{extId},
+            </if>
+            <if test="extType!=null">
+                #{extType},
+            </if>
+            <if test="mobile!=null">
+                #{mobile},
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE `tbl_account`
+        SET
+        <trim suffixOverrides=",">
+            <if test="is_deleted != null">
+                `is_deleted` = #{is_deleted},
+            </if>
+            <if test="nickName != null and nickName!=''">
+                `nick_name` = #{nickName},
+            </if>
+            <if test="avatar != null and avatar!=''">
+                `avatar` = #{avatar},
+            </if>
+        </trim>
+        WHERE `id` = #{id} and is_deleted = 0;
+    </update>
+
+    <delete id="deleteById">
+        UPDATE `tbl_account`
+        SET is_deleted = 1
+        WHERE `id` = #{id} and is_deleted = 0;
+    </delete>
+
+    <select id="queryById" resultMap="TblAccount">
+        select *
+        from  `tbl_account`
+        where `id` = #{id} and is_deleted = 0;
+    </select>
+
+</mapper>

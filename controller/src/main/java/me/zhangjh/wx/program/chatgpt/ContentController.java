@@ -10,13 +10,13 @@ import me.zhangjh.chatgpt.dto.response.ImageResponse;
 import me.zhangjh.chatgpt.dto.response.TextResponse;
 import me.zhangjh.share.response.Response;
 import me.zhangjh.share.util.HttpClientUtil;
-import me.zhangjh.wx.program.model.TblChat;
-import me.zhangjh.wx.program.model.TblDraw;
-import me.zhangjh.wx.program.model.TblQuestion;
-import me.zhangjh.wx.program.request.ChatRequest;
-import me.zhangjh.wx.program.request.DrawRequest;
-import me.zhangjh.wx.program.service.TblChatService;
-import me.zhangjh.wx.program.service.TblDrawService;
+import me.zhangjh.wx.program.model.chatgpt.TblChat;
+import me.zhangjh.wx.program.model.chatgpt.TblDraw;
+import me.zhangjh.wx.program.model.chatgpt.TblQuestion;
+import me.zhangjh.wx.program.chatgpt.request.ChatRequest;
+import me.zhangjh.wx.program.chatgpt.request.DrawRequest;
+import me.zhangjh.wx.program.service.chatgpt.TblChatService;
+import me.zhangjh.wx.program.service.chatgpt.TblDrawService;
 import org.apache.http.client.config.RequestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -145,7 +145,7 @@ public class ContentController {
         }
     }
 
-    @PostMapping("/chat")
+    @PostMapping("/chatgpt")
     public Response<String> getChat(ChatRequest chatRequest, HttpServletRequest req) {
         try {
             String userId = req.getHeader("userId");

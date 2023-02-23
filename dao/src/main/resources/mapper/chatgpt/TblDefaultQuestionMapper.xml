@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhangjh.wx.program.mapper.chatgpt.TblDefaultQuestionMapper">
+
+    <resultMap type="me.zhangjh.wx.program.model.chatgpt.TblQuestion" id="TblQuestionMap">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="question" column="question"/>
+    </resultMap>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+            `id`,
+            `create_time`,
+            `modify_time`,
+            `is_deleted`,
+            `question`,
+        </trim>
+    </sql>
+
+    <insert id="insert" >
+        INSERT INTO `tbl_default_question`
+        (
+        <trim suffixOverrides=",">
+            <if test="question!=null">
+                `question`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="question!=null">
+                #{question},
+            </if>
+        </trim>
+        )
+    </insert>
+    <delete id="deleteById">
+        UPDATE `tbl_default_question`
+        SET is_deleted = 1
+        WHERE `id` = #{id} and is_deleted = 0;
+    </delete>
+
+    <select id="queryRandom" resultType="me.zhangjh.wx.program.model.chatgpt.TblQuestion">
+        select
+        <include refid="allResult" />
+        from tbl_default_question
+        WHERE id >= RAND() * 0.5 * (SELECT MAX(id) FROM tbl_default_question)
+        LIMIT 10;
+    </select>
+
+</mapper>
