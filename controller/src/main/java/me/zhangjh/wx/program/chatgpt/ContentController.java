@@ -145,7 +145,7 @@ public class ContentController {
         }
     }
 
-    @PostMapping("/chatgpt")
+    @PostMapping("/chat")
     public Response<String> getChat(ChatRequest chatRequest, HttpServletRequest req) {
         try {
             String userId = req.getHeader("userId");
