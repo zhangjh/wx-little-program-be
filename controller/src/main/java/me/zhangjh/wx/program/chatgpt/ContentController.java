@@ -195,6 +195,7 @@ public class ContentController {
 
             String term = drawRequest.getTerm();
             ImageRequest imageRequest = new ImageRequest(term);
+            imageRequest.setSize("256x256");
             ImageResponse imageGeneration = chatGptService.createImageGeneration(imageRequest);
             log.info("term: {}, res: {}", term, JSONObject.toJSONString(imageGeneration));
             if(CollectionUtils.isEmpty(imageGeneration.getData())) {
