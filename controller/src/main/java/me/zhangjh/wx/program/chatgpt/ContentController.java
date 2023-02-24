@@ -186,7 +186,7 @@ public class ContentController {
         }
     }
 
-    @PostMapping("/draw")
+    @GetMapping("/draw")
     public Response<String> getPicture(DrawRequest drawRequest, HttpServletRequest req) {
         try {
             String userId = req.getHeader("userId");
