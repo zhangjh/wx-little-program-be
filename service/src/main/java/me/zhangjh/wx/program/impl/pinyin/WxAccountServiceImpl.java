@@ -31,4 +31,9 @@ public class WxAccountServiceImpl implements WxAccountService {
         account.setProductType(productType);
         return wxAccountMapper.query(account);
     }
+
+    @Override
+    public TblAccount queryByExtId(String extId, Integer extType) {
+        return wxAccountMapper.queryByExtId(extId, extType);
+    }
 }

@@ -107,6 +107,15 @@
         </trim>
     </select>
 
+
+    <select id="queryByExtId" resultMap="TblAccountMap">
+        select *
+        from  `tbl_account`
+        where `ext_id` = #{extId}
+        and `ext_type` = #{extType}
+        and is_deleted = 0;
+    </select>
+
     <sql id="allResult">
         <trim suffixOverrides=",">
             `id`,

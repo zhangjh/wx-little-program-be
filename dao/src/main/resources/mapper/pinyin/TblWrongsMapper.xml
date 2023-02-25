@@ -66,16 +66,13 @@
     </resultMap>
 
 
-    <select id="query" resultMap="TblWrongsMap">
+    <select id="queryByUserId" resultMap="TblWrongsMap">
         select *
         from  `tbl_wrongs`
         <trim prefix="where" suffixOverrides="and | or">
             is_deleted = 0 and
             <if test="userId != null and userId!=''">
                 `user_id` = #{userId} and
-            </if>
-            <if test="character != null and character!=''">
-                `character` = #{character} and
             </if>
         </trim>
     </select>

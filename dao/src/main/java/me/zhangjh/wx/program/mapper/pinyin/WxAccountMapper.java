@@ -14,4 +14,6 @@ public interface WxAccountMapper {
     int update(TblAccount tblAccount);
 
     TblAccount query(TblAccount tblAccount);
+
+    TblAccount queryByExtId(String extId, Integer extType);
 }

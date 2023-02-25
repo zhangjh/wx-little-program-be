@@ -12,4 +12,6 @@ public interface WxAccountService {
     TblAccount insert(TblAccount tblAccount);
 
     TblAccount queryById(String extId, Integer extType, Integer productType);
+
+    TblAccount queryByExtId(String extId, Integer extType);
 }
