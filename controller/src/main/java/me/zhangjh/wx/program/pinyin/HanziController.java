@@ -42,6 +42,7 @@ public class HanziController {
         return tblAccount.getId();
     }
 
+    @GetMapping("/getWrongs")
     public Response<List<TblWrongs>> getWrongs(HttpServletRequest req) {
         String userId = req.getHeader("userId");
         Assert.isTrue(StringUtils.isNotEmpty(userId), "参数错误，userId为空");
