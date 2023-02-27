@@ -11,4 +11,6 @@ CREATE TABLE tbl_api_keys
     PRIMARY KEY (id)
 ) COMMENT = 'OpenAI keys';
 
-INSERT INTO tbl_api_keys (api_key, email) values ("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", "njhxzhangjihong@126.com");
+INSERT INTO tbl_api_keys (api_key, email) values ("", "");
+
+update  tbl_api_keys set api_key = "" where id = ?;
