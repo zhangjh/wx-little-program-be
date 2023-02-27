@@ -33,6 +33,10 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>me.zhangjh</groupId>
+            <artifactId>chatgpt-starter</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
