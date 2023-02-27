@@ -10,11 +10,11 @@ import me.zhangjh.chatgpt.dto.response.ImageResponse;
 import me.zhangjh.chatgpt.dto.response.TextResponse;
 import me.zhangjh.share.response.Response;
 import me.zhangjh.share.util.HttpClientUtil;
+import me.zhangjh.wx.program.chatgpt.request.ChatRequest;
+import me.zhangjh.wx.program.chatgpt.request.DrawRequest;
 import me.zhangjh.wx.program.model.chatgpt.TblChat;
 import me.zhangjh.wx.program.model.chatgpt.TblDraw;
 import me.zhangjh.wx.program.model.chatgpt.TblQuestion;
-import me.zhangjh.wx.program.chatgpt.request.ChatRequest;
-import me.zhangjh.wx.program.chatgpt.request.DrawRequest;
 import me.zhangjh.wx.program.service.chatgpt.TblChatService;
 import me.zhangjh.wx.program.service.chatgpt.TblDrawService;
 import org.apache.http.client.config.RequestConfig;
@@ -23,6 +23,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
 import java.util.*;
 
 /**
@@ -152,7 +154,7 @@ public class ContentController {
             chatRequest.headerCheck(req);
             chatRequest.check();
 
-            String question = chatRequest.getQuestion();
+            String question = URLDecoder.decode(chatRequest.getQuestion(), Charset.defaultCharset());
             TextRequest textRequest = new TextRequest();
             textRequest.setPrompt(question);
             textRequest.setTemperature(0.5);
@@ -193,8 +195,8 @@ public class ContentController {
             drawRequest.headerCheck(req);
             drawRequest.check();
 
-            String term = drawRequest.getTerm();
-            ImageRequest imageRequest = new ImageRequest(term);
+            String term = URLDecoder.decode(drawRequest.getTerm(), Charset.defaultCharset());
+            ImageRequest imageRequest = new ImageRequest(URLDecoder.decode(term, Charset.defaultCharset()));
             imageRequest.setSize("256x256");
             ImageResponse imageGeneration = chatGptService.createImageGeneration(imageRequest);
             log.info("term: {}, res: {}", term, JSONObject.toJSONString(imageGeneration));
