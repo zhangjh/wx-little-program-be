@@ -267,7 +267,8 @@ public class ContentController {
 
     @GetMapping("/getTips")
     public Response<String> getTips() {
-        return Response.success("点击帮助查看使用说明和常见问题，也可以加群反馈问题和交流~~接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时敬请谅解，可以换个时段再试");
+        String tips = "已接入最新ChatGpt模型，智能升级，效果提升显著！！接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时敬请谅解~~点击帮助查看使用说明和常见问题，也可以加群反馈问题和交流~~";
+        return Response.success(tips);
     }
 
     private void recordChat(String userId, String question, String answer) {
