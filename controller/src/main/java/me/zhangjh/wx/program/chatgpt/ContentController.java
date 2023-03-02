@@ -267,8 +267,8 @@ public class ContentController {
 
     @GetMapping("/getTips")
     public Response<String> getTips() {
-//        String tips = "已接入最新ChatGpt模型，智能升级，效果提升显著！！接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时敬请谅解~~点击帮助查看使用说明和常见问题，也可以加群反馈问题和交流~~";
-        String tips = "突发：腾讯云屏蔽了chatgpt的域名，目前服务受限暂时不能访问，修复进行中...";
+        String tips = "通过搬迁服务器，目前已经紧急修复完成！！";
+        tips += "已接入最新ChatGpt模型，智能升级，效果提升显著！！接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时敬请谅解~~点击帮助查看使用说明和常见问题，也可以加群反馈问题和交流~~";
         return Response.success(tips);
     }
 
