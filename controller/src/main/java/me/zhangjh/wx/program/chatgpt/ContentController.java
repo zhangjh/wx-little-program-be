@@ -3,9 +3,12 @@ package me.zhangjh.wx.program.chatgpt;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.chatgpt.client.ChatGptService;
+import me.zhangjh.chatgpt.constant.RoleEnum;
+import me.zhangjh.chatgpt.dto.Message;
 import me.zhangjh.chatgpt.dto.request.ImageRequest;
 import me.zhangjh.chatgpt.dto.request.TextRequest;
 import me.zhangjh.chatgpt.dto.response.BizException;
+import me.zhangjh.chatgpt.dto.response.ChatResponse;
 import me.zhangjh.chatgpt.dto.response.ImageResponse;
 import me.zhangjh.chatgpt.dto.response.TextResponse;
 import me.zhangjh.share.response.Response;
@@ -17,6 +20,7 @@ import me.zhangjh.wx.program.model.chatgpt.TblDraw;
 import me.zhangjh.wx.program.model.chatgpt.TblQuestion;
 import me.zhangjh.wx.program.service.chatgpt.TblChatService;
 import me.zhangjh.wx.program.service.chatgpt.TblDrawService;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.http.client.config.RequestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
@@ -168,11 +172,7 @@ public class ContentController {
                 String answer = textCompletion.getChoices().get(0).getText().trim();
                 // 写入记录
                 if(!chatRequest.debugMode(req)) {
-                    TblChat tblChat = new TblChat();
-                    tblChat.setQuestion(question);
-                    tblChat.setAnswer(answer);
-                    tblChat.setUserId(userId);
-                    tblChatService.insert(tblChat);
+                    recordChat(userId, question, answer);
                 }
                 return Response.success(answer);
             }
@@ -186,6 +186,46 @@ public class ContentController {
             }
             return Response.fail("未知的服务异常");
         }
+    }
+
+    @PostMapping("/newChat")
+    public Response<String> getNewChat(@RequestBody ChatRequest chatRequest, HttpServletRequest req) {
+        String userId = req.getHeader("userId");
+        chatRequest.headerCheck(req);
+        chatRequest.check();
+
+        // 构建本次提问上下文
+        List<Message> messages = new ArrayList<>();
+
+        Map<String, String> contextMap = chatRequest.getContextMap();
+        if(MapUtils.isNotEmpty(contextMap)) {
+            for (Map.Entry<String, String> entry : contextMap.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                Message question = new Message();
+                question.setRole(RoleEnum.user.name());
+                question.setContent(key);
+                messages.add(question);
+                Message answer = new Message();
+                answer.setRole(RoleEnum.assistant.name());
+                answer.setContent(value);
+                messages.add(answer);
+            }
+        }
+        me.zhangjh.chatgpt.dto.request.ChatRequest request = new me.zhangjh.chatgpt.dto.request.ChatRequest();
+        Message message = new Message();
+        message.setRole(RoleEnum.user.name());
+        message.setContent(chatRequest.getQuestion());
+        messages.add(message);
+        request.setMessages(messages);
+
+        ChatResponse chatCompletion = chatGptService.createChatCompletion(request);
+        String answer = chatCompletion.getChoices().get(0).getMessage().getContent().trim();
+        // 记录
+        if(!chatRequest.debugMode(req)) {
+            recordChat(userId, chatRequest.getQuestion(), answer);
+        }
+        return Response.success(answer);
     }
 
     @GetMapping("/draw")
@@ -228,5 +268,13 @@ public class ContentController {
     @GetMapping("/getTips")
     public Response<String> getTips() {
         return Response.success("点击帮助查看使用说明和常见问题，也可以加群反馈问题和交流~~接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时敬请谅解，可以换个时段再试");
+    }
+
+    private void recordChat(String userId, String question, String answer) {
+        TblChat tblChat = new TblChat();
+        tblChat.setQuestion(question);
+        tblChat.setAnswer(answer);
+        tblChat.setUserId(userId);
+        tblChatService.insert(tblChat);
     }
 }
