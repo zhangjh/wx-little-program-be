@@ -152,7 +152,7 @@ public class ContentController {
     }
 
     @PostMapping("/chat")
-    public Response<String> getChat(ChatRequest chatRequest, HttpServletRequest req) {
+    public Response<String> getChat(@RequestBody ChatRequest chatRequest, HttpServletRequest req) {
         try {
             String userId = req.getHeader("userId");
             chatRequest.headerCheck(req);

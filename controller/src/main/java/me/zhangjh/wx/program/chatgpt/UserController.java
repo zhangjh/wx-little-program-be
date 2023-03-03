@@ -11,10 +11,7 @@ import me.zhangjh.wx.program.chatgpt.request.UserRequest;
 import me.zhangjh.wx.program.service.chatgpt.TblAccountService;
 import me.zhangjh.wx.program.service.chatgpt.TblChatService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -74,7 +71,7 @@ public class UserController {
     }
 
     @PostMapping("/saveUser")
-    public Response<Void> saveUser(AccountRequest req) {
+    public Response<Void> saveUser(@RequestBody AccountRequest req) {
         try {
             String userId = req.getUserId();
             String avatar = req.getAvatarUrl();
