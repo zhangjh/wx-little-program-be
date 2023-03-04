@@ -197,15 +197,16 @@ public class ContentController {
         // 构建本次提问上下文
         List<Message> messages = new ArrayList<>();
 
+        String question = URLDecoder.decode(chatRequest.getQuestion());
         Map<String, String> contextMap = chatRequest.getContextMap();
         if(MapUtils.isNotEmpty(contextMap)) {
             for (Map.Entry<String, String> entry : contextMap.entrySet()) {
                 String key = entry.getKey();
                 String value = entry.getValue();
-                Message question = new Message();
-                question.setRole(RoleEnum.user.name());
-                question.setContent(key);
-                messages.add(question);
+                Message q = new Message();
+                q.setRole(RoleEnum.user.name());
+                q.setContent(key);
+                messages.add(q);
                 Message answer = new Message();
                 answer.setRole(RoleEnum.assistant.name());
                 answer.setContent(value);
@@ -215,7 +216,7 @@ public class ContentController {
         me.zhangjh.chatgpt.dto.request.ChatRequest request = new me.zhangjh.chatgpt.dto.request.ChatRequest();
         Message message = new Message();
         message.setRole(RoleEnum.user.name());
-        message.setContent(chatRequest.getQuestion());
+        message.setContent(question);
         messages.add(message);
         request.setMessages(messages);
 
@@ -267,8 +268,7 @@ public class ContentController {
 
     @GetMapping("/getTips")
     public Response<String> getTips() {
-        String tips = "通过搬迁服务器，目前已经紧急修复完成！！";
-        tips += "已接入最新ChatGpt模型，智能升级，效果提升显著！！接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时敬请谅解~~点击帮助查看使用说明和常见问题，也可以加群反馈问题和交流~~";
+        String tips = "已接入最新ChatGpt模型，智能升级，效果提升显著！！接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时重试或更换时段~~";
         return Response.success(tips);
     }
 
