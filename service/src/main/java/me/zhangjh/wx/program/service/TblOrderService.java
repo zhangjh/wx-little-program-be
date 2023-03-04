@@ -1,6 +1,6 @@
-package me.zhangjh.wx.program.service.pinyin;
+package me.zhangjh.wx.program.service;
 
-import me.zhangjh.wx.program.model.pinyin.TblOrder;
+import me.zhangjh.wx.program.model.TblOrder;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
-package me.zhangjh.wx.program.impl.pinyin;
+package me.zhangjh.wx.program.impl;
 
 import me.zhangjh.wx.program.mapper.pinyin.TblOrderMapper;
-import me.zhangjh.wx.program.model.pinyin.TblOrder;
-import me.zhangjh.wx.program.service.pinyin.TblOrderService;
+import me.zhangjh.wx.program.model.TblOrder;
+import me.zhangjh.wx.program.service.TblOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

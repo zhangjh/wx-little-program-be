@@ -45,7 +45,7 @@
         WHERE `id` = #{id}
     </update>
 
-    <resultMap type="me.zhangjh.wx.program.model.pinyin.TblOrder" id="TblOrderMap">
+    <resultMap type="me.zhangjh.wx.program.model.TblOrder" id="TblOrderMap">
         <result property="id" column="id"/>
         <result property="createTime" column="create_time"/>
         <result property="modifyTime" column="modify_time"/>

@@ -1,4 +1,4 @@
-package me.zhangjh.wx.program.model.pinyin;
+package me.zhangjh.wx.program.model;
 
 import lombok.Getter;
 
@@ -9,8 +9,12 @@ import lombok.Getter;
  */
 @Getter
 public enum OrderItemEnum {
+    // 汉字助手的功能项
     CUSTOMIZE(0, "自定义生字本"),
     WRONGS(1, "错题本"),
+    // AI文图的功能项
+    CHATGPT(2, "AI聊天"),
+    DRAW(3, "AI作图"),
     ;
 
     private final Integer code;

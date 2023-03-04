@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhangjh.wx.program.mapper.TblCouponMapper">
+
+    <insert id="insertTblCoupon"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `tbl_coupon`
+        (
+            `code`,
+            `type`,
+            `discount`
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            #{code}, #{type}, #{discount}
+        </trim>
+        )
+    </insert>
+
+    <update id="setCouponUsed">
+        UPDATE `tbl_coupon`
+        SET
+        <trim suffixOverrides=",">
+            <if test="used != null">
+                `used` = #{used},
+            </if>
+        </trim>
+        WHERE `code` = #{code}
+    </update>
+
+    <resultMap type="me.zhangjh.wx.program.model.TblCoupon" id="TblCouponMap">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="code" column="code" />
+        <result property="used" column="used"/>
+        <result property="type" column="type"/>
+        <result property="discount" column="discount"/>
+    </resultMap>
+
+    <select id="queryTblCoupon" resultMap="TblCouponMap">
+        select *
+        from  `tbl_coupon`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="code != null">
+                `code` = #{code} and
+            </if>
+            <if test="used != null">
+                `used` = #{used} and
+            </if>
+            <if test="type != null">
+                `type` = #{type} and
+            </if>
+        </trim>
+        where is_deleted = 0;
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `id`,
+        `create_time`,
+        `modify_time`,
+        `is_deleted`+0 as `is_deleted`,
+        `code`,
+        `used`+0 as `used`,
+        `type`+0 as `type`,
+        `discount`+0 as `discount`,
+        </trim>
+    </sql>
+</mapper>

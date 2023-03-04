@@ -1,9 +1,8 @@
-package me.zhangjh.wx.program.model.pinyin;
+package me.zhangjh.wx.program.model;
 
 import lombok.Data;
 
 import java.sql.Date;
-import java.util.List;
 
 /**
  * @author zhangjh451@midea.com
@@ -26,7 +25,17 @@ public class TblOrder {
     private Long orderId;
 
     /**
-     * 订单购买的内容，@link me.zhangjh.wx.program.model.pinyin.OrderItemEnum
+     * 订单购买的内容，@link me.zhangjh.wx.program.model.OrderItemEnum
      * */
-    private List<Integer> items;
+    private Integer itemId;
+
+    /**
+     * 支付状态，0：待支付，1：已支付，2：已取消，3：已退款
+     * */
+    private Integer payStatus;
+
+    /**
+     * 订单金额
+     * */
+    private Integer amount;
 }
