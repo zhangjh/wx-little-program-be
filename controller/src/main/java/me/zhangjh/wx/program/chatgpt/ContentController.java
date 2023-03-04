@@ -224,7 +224,7 @@ public class ContentController {
         String answer = chatCompletion.getChoices().get(0).getMessage().getContent().trim();
         // 记录
         if(!chatRequest.debugMode(req)) {
-            recordChat(userId, chatRequest.getQuestion(), answer);
+            recordChat(userId, question, answer);
         }
         return Response.success(answer);
     }
