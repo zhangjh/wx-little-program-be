@@ -14,6 +14,6 @@ public interface TblWrongsMapper {
 
     int update(TblWrongs tblWrongs);
 
-    List<TblWrongs> queryByUserId(Long userId);
+    List<TblWrongs> queryByUserId(String userId);
 
 }

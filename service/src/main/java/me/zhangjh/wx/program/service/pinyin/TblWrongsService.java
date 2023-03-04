@@ -13,7 +13,7 @@ public interface TblWrongsService {
 
     TblWrongs insert(TblWrongs tblWrongs);
 
-    List<TblWrongs> queryByUserId(Long userId);
+    List<TblWrongs> queryByUserId(String userId);
 
     boolean deleteById(Long id);
 }

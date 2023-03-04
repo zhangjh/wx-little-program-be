@@ -6,11 +6,11 @@ import java.sql.Date;
 
 /**
  * @author zhangjh451@midea.com
- * @date 11:08 AM 2023/2/23
+ * @date 6:54 PM 2023/2/28
  * @Description
  */
 @Data
-public class TblWords {
+public class TblWordsDetail {
 
     private Long id ;
     private Date createTime ;
@@ -18,12 +18,16 @@ public class TblWords {
     private Integer isDeleted ;
 
     /**
-     * 生字本名称
+     * 生字
      */
-    private String name;
+    private String character;
+    /**
+     * 拼音
+     */
+    private String pinyin;
 
     /**
-     * 用户id
-     */
-    private String userId;
+     * 该汉字属于哪个生字本
+     * */
+    private Long wordsId;
 }

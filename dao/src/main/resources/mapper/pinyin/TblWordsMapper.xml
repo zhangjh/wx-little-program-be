@@ -3,18 +3,12 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.zhangjh.wx.program.mapper.pinyin.TblWordsMapper">
 
-    <insert id="insertTblWords"  useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertTblWords" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `tbl_words`
         (
         <trim suffixOverrides=",">
             <if test="name!=null">
                 `name`,
-            </if>
-            <if test="character!=null">
-                `character`,
-            </if>
-            <if test="pinyin!=null">
-                `pinyin`,
             </if>
             <if test="userId!=null">
                 `user_id`,
@@ -27,17 +21,21 @@
             <if test="name!=null">
                 #{name},
             </if>
-            <if test="character!=null">
-                #{character},
-            </if>
-            <if test="pinyin!=null">
-                #{pinyin},
-            </if>
             <if test="userId!=null">
                 #{userId},
             </if>
         </trim>
         )
+    </insert>
+
+    <insert id="batchInsertTblWords" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO `tbl_words` (name, user_id)
+        VALUES
+        <foreach collection="list" item="words" separator=",">
+        (
+            #{words.name}, #{words.userId}
+        )
+        </foreach>
     </insert>
 
     <update id="update">
@@ -50,15 +48,6 @@
             <if test="name != null and name!=''">
                 `name` = #{name},
             </if>
-            <if test="character != null and character!=''">
-                `character` = #{character},
-            </if>
-            <if test="pinyin != null and pinyin!=''">
-                `pinyin` = #{pinyin},
-            </if>
-            <if test="userId != null and userId!=''">
-                `user_id` = #{userId},
-            </if>
         </trim>
         WHERE `id` = #{id}
     </update>
@@ -69,8 +58,6 @@
         <result property="modifyTime" column="modify_time"/>
         <result property="isDeleted" column="is_deleted"/>
         <result property="name" column="name"/>
-        <result property="character" column="character"/>
-        <result property="pinyin" column="pinyin"/>
         <result property="userId" column="user_id"/>
     </resultMap>
 
@@ -85,16 +72,15 @@
             <if test="name != null and name!=''">
                 `name` = #{name} and
             </if>
-            <if test="character != null and character!=''">
-                `character` = #{character} and
-            </if>
-            <if test="pinyin != null and pinyin!=''">
-                `pinyin` = #{pinyin} and
-            </if>
             <if test="userId != null and userId!=''">
                 `user_id` = #{userId} and
             </if>
         </trim>
+    </select>
+
+    <select id="queryByUserId" resultMap="TblWordsMap">
+        select * from tbl_words
+        where is_deleted = 0 and user_id = #{userId}
     </select>
 
 </mapper>

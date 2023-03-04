@@ -12,8 +12,11 @@ public interface TblWordsMapper {
 
     int insertTblWords(TblWords tblWords);
 
+    int batchInsertTblWords(List<TblWords> tblWordsList);
+
     int update(TblWords tblWords);
 
     List<TblWords> query(TblWords tblWords);
 
+    List<TblWords> queryByUserId(String userId);
 }

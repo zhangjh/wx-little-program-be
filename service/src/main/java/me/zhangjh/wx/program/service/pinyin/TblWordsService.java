@@ -13,7 +13,11 @@ public interface TblWordsService {
 
     TblWords insert(TblWords tblWords);
 
+    List<TblWords> batchInsert(List<TblWords> tblWordsList);
+
     List<TblWords> query(TblWords tblWords);
+
+    List<TblWords> queryByUserId(String userId);
 
     boolean deleteById(Long id);
 }

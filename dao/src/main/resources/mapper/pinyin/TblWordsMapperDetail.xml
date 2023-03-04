@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhangjh.wx.program.mapper.pinyin.TblWordsDetailMapper">
+
+    <insert id="insertTblWordsDetail" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `tbl_words_detail`
+        (
+        <trim suffixOverrides=",">
+            <if test="character!=null">
+                `character`,
+            </if>
+            <if test="pinyin!=null">
+                `pinyin`,
+            </if>
+            <if test="wordsId!=null">
+                `words_id`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="character!=null">
+                #{character},
+            </if>
+            <if test="pinyin!=null">
+                #{pinyin},
+            </if>
+            <if test="wordsId!=null">
+                #{wordsId},
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <insert id="batchInsertTblWordsDetail" useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+        INSERT INTO `tbl_words_detail` (`character`, pinyin, words_id)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+        (
+            #{item.character}, #{item.pinyin}, #{item.wordsId}
+        )
+        </foreach>
+    </insert>
+
+    <update id="update">
+        UPDATE `tbl_words_detail`
+        SET
+        <trim suffixOverrides=",">
+            <if test="isDeleted != null">
+                `is_deleted` = #{isDeleted},
+            </if>
+            <if test="character != null and character!=''">
+                `character` = #{character},
+            </if>
+            <if test="pinyin != null and pinyin!=''">
+                `pinyin` = #{pinyin},
+            </if>
+        </trim>
+        WHERE `id` = #{id}
+    </update>
+
+    <resultMap type="me.zhangjh.wx.program.model.pinyin.TblWordsDetail" id="TblWordsDetailMap">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="character" column="character"/>
+        <result property="pinyin" column="pinyin"/>
+        <result property="wordsId" column="words_id"/>
+    </resultMap>
+
+    <select id="query" resultMap="TblWordsDetailMap">
+        select *
+        from  `tbl_words_detail`
+        <trim prefix="where" suffixOverrides="and | or">
+            is_deleted = 0 and
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="character != null and character!=''">
+                `character` = #{character} and
+            </if>
+            <if test="wordsId != null and wordsId!=''">
+                `words_id` = #{wordsId} and
+            </if>
+        </trim>
+        order by id
+    </select>
+
+    <select id="queryByWordsId" resultMap="TblWordsDetailMap">
+        select * from tbl_words_detail
+        where is_deleted = 0 and words_id = #{wordsId}
+        order by id
+    </select>
+
+    <update id="deleteById">
+        UPDATE `tbl_words_detail`
+        SET `is_deleted` = 1
+        WHERE `id` = #{id}
+    </update>
+
+    <update id="clearWordsId">
+        UPDATE `tbl_words_detail`
+        SET `is_deleted` = 1
+        WHERE `words_id` = #{wordsId}
+    </update>
+
+</mapper>

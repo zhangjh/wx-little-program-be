@@ -26,8 +26,19 @@ public class TblWordsServiceImpl implements TblWordsService {
     }
 
     @Override
+    public List<TblWords> batchInsert(List<TblWords> tblWordsList) {
+        tblWordsMapper.batchInsertTblWords(tblWordsList);
+        return tblWordsList;
+    }
+
+    @Override
     public List<TblWords> query(TblWords query) {
         return tblWordsMapper.query(query);
+    }
+
+    @Override
+    public List<TblWords> queryByUserId(String userId) {
+        return tblWordsMapper.queryByUserId(userId);
     }
 
     @Override

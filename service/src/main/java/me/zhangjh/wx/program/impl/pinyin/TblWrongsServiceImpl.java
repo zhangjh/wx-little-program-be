@@ -26,7 +26,7 @@ public class TblWrongsServiceImpl implements TblWrongsService {
     }
 
     @Override
-    public List<TblWrongs> queryByUserId(Long userId) {
+    public List<TblWrongs> queryByUserId(String userId) {
         return tblWrongsMapper.queryByUserId(userId);
     }
 
