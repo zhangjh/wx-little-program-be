@@ -1,6 +1,6 @@
 package me.zhangjh.wx.program.impl;
 
-import me.zhangjh.wx.program.mapper.pinyin.TblOrderMapper;
+import me.zhangjh.wx.program.mapper.TblOrderMapper;
 import me.zhangjh.wx.program.model.TblOrder;
 import me.zhangjh.wx.program.service.TblOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,6 @@ public class TblOrderServiceImpl implements TblOrderService {
 
     @Override
     public List<TblOrder> query(TblOrder query) {
-        return tblOrderMapper.query(query);
+        return tblOrderMapper.queryTblOrder(query);
     }
 }

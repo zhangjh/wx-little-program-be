@@ -18,12 +18,12 @@ import javax.sql.DataSource;
  * @Description
  */
 @Configuration
-@MapperScan(basePackages = "me.zhangjh.wx.program.mapper.chatgpt", sqlSessionFactoryRef = "chatGptSelSessionFactory")
+@MapperScan(basePackages = "me.zhangjh.wx.program.mapper.chatgpt", sqlSessionFactoryRef = "chatGptSqlSessionFactory")
 public class MybatisConfig {
 
     @Primary
-    @Bean(name = "chatGptSelSessionFactory")
-    public SqlSessionFactory chatGptSelSessionFactory(@Qualifier("chatGptDataSource") DataSource dataSource) throws Exception {
+    @Bean(name = "chatGptSqlSessionFactory")
+    public SqlSessionFactory chatGptSqlSessionFactory(@Qualifier("chatGptDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
 
@@ -36,8 +36,8 @@ public class MybatisConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean(name = "pinyinSelSessionFactory")
-    public SqlSessionFactory pinyinSelSessionFactory(@Qualifier("pinyinDataSource") DataSource dataSource) throws Exception {
+    @Bean(name = "pinyinSqlSessionFactory")
+    public SqlSessionFactory wxSqlSessionFactory(@Qualifier("wxDataSource") DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
@@ -49,10 +49,24 @@ public class MybatisConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
+    @Bean(name = "orderSqlSessionFactory")
+    public SqlSessionFactory orderSqlSessionFactory(@Qualifier("wxDataSource") DataSource dataSource) throws Exception {
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+        configuration.setMapUnderscoreToCamelCase(true);
+        sqlSessionFactoryBean.setConfiguration(configuration);
+        sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
+                .getResources("classpath:mapper/*.xml"));
+
+        return sqlSessionFactoryBean.getObject();
+    }
+
+
     @Bean
     public MapperScannerConfigurer chatGptMapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setSqlSessionFactoryBeanName("chatGptSelSessionFactory");
+        mapperScannerConfigurer.setSqlSessionFactoryBeanName("chatGptSqlSessionFactory");
         mapperScannerConfigurer.setBasePackage("me.zhangjh.wx.program.mapper.chatgpt");
         return mapperScannerConfigurer;
     }
@@ -60,8 +74,16 @@ public class MybatisConfig {
     @Bean
     public MapperScannerConfigurer pinyinMapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setSqlSessionFactoryBeanName("pinyinSelSessionFactory");
+        mapperScannerConfigurer.setSqlSessionFactoryBeanName("pinyinSqlSessionFactory");
         mapperScannerConfigurer.setBasePackage("me.zhangjh.wx.program.mapper.pinyin");
+        return mapperScannerConfigurer;
+    }
+
+    @Bean
+    public MapperScannerConfigurer orderMapperScannerConfigurer() {
+        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+        mapperScannerConfigurer.setSqlSessionFactoryBeanName("orderSqlSessionFactory");
+        mapperScannerConfigurer.setBasePackage("me.zhangjh.wx.program.mapper");
         return mapperScannerConfigurer;
     }
 }

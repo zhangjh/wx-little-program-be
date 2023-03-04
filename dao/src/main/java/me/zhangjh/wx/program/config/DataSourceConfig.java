@@ -23,9 +23,9 @@ public class DataSourceConfig {
         return DataSourceBuilder.create().build();
     }
 
-    @Bean("pinyinDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.pinyin")
-    public DataSource pinyinDataSource() {
+    @Bean("wxDataSource")
+    @ConfigurationProperties(prefix = "spring.datasource.wx")
+    public DataSource wxDataSource() {
         return DataSourceBuilder.create().build();
     }
 }
