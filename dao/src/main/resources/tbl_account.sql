@@ -12,7 +12,7 @@ CREATE TABLE tbl_account
     `ext_id`       VARCHAR(64) NULL COMMENT '外部系统id',
     `ext_type`     TINYINT(1) NOT NULL COMMENT '外部系统类型',
     `mobile`      VARCHAR(11) NULL COMMENT '手机',
-    `product_type` TINYINT(1) NOT NULL COMMENT '用户所属的产品类型',
+    `product_type` VARCHAR(10) NOT NULL COMMENT '用户所属的产品类型',
     PRIMARY KEY (id)
 ) COMMENT = '账号信息';
 

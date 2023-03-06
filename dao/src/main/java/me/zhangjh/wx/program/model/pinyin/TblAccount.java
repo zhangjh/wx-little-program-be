@@ -27,5 +27,5 @@ public class TblAccount {
 
     private String mobile;
 
-    private Integer productType;
+    private String productType;
 }

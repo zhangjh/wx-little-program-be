@@ -15,4 +15,9 @@ public class AccountRequest {
     private String nickName;
 
     private String avatarUrl;
+
+    /**
+     * @link ProductTypeEnum
+     * */
+    private String productType;
 }

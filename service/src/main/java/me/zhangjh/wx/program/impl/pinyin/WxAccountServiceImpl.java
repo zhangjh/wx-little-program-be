@@ -24,7 +24,7 @@ public class WxAccountServiceImpl implements WxAccountService {
     }
 
     @Override
-    public TblAccount queryById(String extId, Integer extType, Integer productType) {
+    public TblAccount queryById(String extId, Integer extType, String productType) {
         TblAccount account = new TblAccount();
         account.setExtId(extId);
         account.setExtType(extType);

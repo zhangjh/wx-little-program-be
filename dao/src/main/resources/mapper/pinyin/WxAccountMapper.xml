@@ -127,7 +127,7 @@
             `ext_id`,
             `ext_type`+0 as `ext_type`,
             `mobile`,
-            `product_type`+0 as `product_type`,
+            `product_type` as `product_type`,
         </trim>
     </sql>
 
