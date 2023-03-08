@@ -3,7 +3,7 @@ package me.zhangjh.wx.program.order.request;
 import lombok.Data;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 9:48 AM 2023/3/7
  * @Description
  */

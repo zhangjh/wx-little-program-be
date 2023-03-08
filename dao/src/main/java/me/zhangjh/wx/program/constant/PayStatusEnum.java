@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.Arrays;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 10:59 PM 2023/3/7
  * @Description
  */

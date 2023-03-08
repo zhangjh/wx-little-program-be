@@ -3,7 +3,7 @@ package me.zhangjh.wx.program.constant;
 import lombok.Getter;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 11:14 AM 2023/2/23
  * @Description
  */

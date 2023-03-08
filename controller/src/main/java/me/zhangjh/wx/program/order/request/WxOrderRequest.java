@@ -5,7 +5,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 9:53 AM 2023/3/7
  * @Description
  */

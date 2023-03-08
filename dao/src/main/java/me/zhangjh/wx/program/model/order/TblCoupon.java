@@ -5,7 +5,7 @@ import lombok.Data;
 import java.sql.Date;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 5:47 PM 2023/3/3
  * @Description
  */

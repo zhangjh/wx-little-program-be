@@ -3,7 +3,7 @@ package me.zhangjh.wx.program.constant;
 import lombok.Getter;
 
 /**
- * @author zhangjh451@midea.com
+ * @author njhxzhangjihong@126.com
  * @date 5:48 PM 2023/3/3
  * @Description 优惠券类型枚举
  */
