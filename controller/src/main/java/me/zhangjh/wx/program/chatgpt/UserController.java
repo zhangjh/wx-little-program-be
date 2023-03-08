@@ -2,12 +2,12 @@ package me.zhangjh.wx.program.chatgpt;
 
 import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.share.response.Response;
-import me.zhangjh.wx.program.dto.PageDTO;
-import me.zhangjh.wx.program.model.PageQuery;
-import me.zhangjh.wx.program.model.chatgpt.TblAccount;
-import me.zhangjh.wx.program.model.chatgpt.TblChat;
 import me.zhangjh.wx.program.chatgpt.request.AccountRequest;
 import me.zhangjh.wx.program.chatgpt.request.UserRequest;
+import me.zhangjh.wx.program.dto.PageDTO;
+import me.zhangjh.wx.program.model.chatgpt.PageChatQuery;
+import me.zhangjh.wx.program.model.chatgpt.TblAccount;
+import me.zhangjh.wx.program.model.chatgpt.TblChat;
 import me.zhangjh.wx.program.service.chatgpt.TblAccountService;
 import me.zhangjh.wx.program.service.chatgpt.TblChatService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +55,8 @@ public class UserController {
             userRequest.headerCheck(req);
             userRequest.check();
 
-            PageQuery<TblChat> query = new PageQuery<>();
-            TblChat chat = new TblChat();
-            chat.setUserId(userId);
-            query.setData(chat);
+            PageChatQuery query = new PageChatQuery();
+            query.setUserId(userId);
             query.setPageIndex(userRequest.getPageIndex());
             query.setPageSize(userRequest.getPageSize());
 

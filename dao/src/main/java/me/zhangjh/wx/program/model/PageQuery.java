@@ -8,13 +8,15 @@ import lombok.Data;
  * @Description
  */
 @Data
-public class PageQuery<T> {
+public class PageQuery {
 
-    // 页码
+    /**
+     * 页码
+     */
     private Integer pageIndex = 1;
 
-    // 每页条数
+    /**
+     * 每页条数
+     */
     private Integer pageSize = 10;
-
-    private T data;
 }

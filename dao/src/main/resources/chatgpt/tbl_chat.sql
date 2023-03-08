@@ -12,3 +12,7 @@ CREATE TABLE tbl_chat
 ) COMMENT = 'AI问答';
 
 CREATE INDEX idx_user_id ON tbl_chat(user_id);
+
+select count(*) from tbl_chat where user_id = "oil6I5apW-g60K-yvCrjqMUwWH6o";
+
+select count(*) from tbl_draw where user_id = "oil6I5apW-g60K-yvCrjqMUwWH6o";

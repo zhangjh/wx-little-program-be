@@ -1,4 +1,4 @@
-package me.zhangjh.wx.program.model;
+package me.zhangjh.wx.program.model.order;
 
 import lombok.Data;
 
@@ -20,14 +20,14 @@ public class TblOrder {
     private String userId;
 
     /**
-     * uuid
+     * 订单id
      */
-    private Long orderId;
+    private String orderId;
 
     /**
-     * 订单购买的内容，@link me.zhangjh.wx.program.model.OrderItemEnum
+     * 订单购买的内容
      * */
-    private Integer itemId;
+    private String itemCode;
 
     /**
      * 支付状态，0：待支付，1：已支付，2：已取消，3：已退款
@@ -37,5 +37,7 @@ public class TblOrder {
     /**
      * 订单金额
      * */
-    private Integer amount;
+    private Integer price;
+
+    private String couponCode;
 }

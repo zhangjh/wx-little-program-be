@@ -1,7 +1,7 @@
 package me.zhangjh.wx.program.service.chatgpt;
 
 import me.zhangjh.wx.program.dto.PageDTO;
-import me.zhangjh.wx.program.model.PageQuery;
+import me.zhangjh.wx.program.model.chatgpt.PageChatQuery;
 import me.zhangjh.wx.program.model.chatgpt.TblChat;
 
 /**
@@ -24,7 +24,10 @@ public interface TblChatService {
      * @param query 筛选条件
      * @return 查询结果
      */
-    PageDTO<TblChat> paginQuery(PageQuery<TblChat> query);
+    PageDTO<TblChat> paginQuery(PageChatQuery query);
+
+    int count(TblChat tblChat);
+
     /**
      * 新增数据
      *

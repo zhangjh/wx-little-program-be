@@ -1,6 +1,6 @@
-package me.zhangjh.wx.program.service;
+package me.zhangjh.wx.program.service.order;
 
-import me.zhangjh.wx.program.model.TblCoupon;
+import me.zhangjh.wx.program.model.order.TblCoupon;
 
 import java.util.List;
 
@@ -16,4 +16,6 @@ public interface TblCouponService {
     TblCoupon queryByCode(String couponCode);
 
     boolean setCouponUsed(String couponCode);
+
+    List<String> generateCoupons(String couponType, Integer cnt, Integer discount);
 }

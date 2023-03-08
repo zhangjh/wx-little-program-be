@@ -2,10 +2,8 @@ package me.zhangjh.wx.program.chatgpt;
 
 import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.share.response.Response;
-import me.zhangjh.wx.program.dto.PageDTO;
-import me.zhangjh.wx.program.model.PageQuery;
-import me.zhangjh.wx.program.model.chatgpt.TblShare;
 import me.zhangjh.wx.program.chatgpt.request.ItemRequest;
+import me.zhangjh.wx.program.model.chatgpt.TblShare;
 import me.zhangjh.wx.program.service.chatgpt.TblShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @author njhxzhangjihong@126.com
@@ -56,29 +53,4 @@ public class ShareController {
         }
     }
 
-    public Response<List<TblShare>> getShareItems(ItemRequest itemRequest, HttpServletRequest req) {
-        try {
-            String userId = req.getHeader("userId");
-            itemRequest.headerCheck(req);
-            itemRequest.check();
-
-            PageQuery<TblShare> pageQuery = new PageQuery<>();
-            TblShare tblShare = new TblShare();
-            // 获取所有的分享结果
-            if(!itemRequest.getGetAllFlag()) {
-                tblShare.setUserId(userId);
-            }
-            tblShare.setType(itemRequest.getType());
-            tblShare.setTarget(itemRequest.getTag());
-            tblShare.setShareType(itemRequest.getShareType());
-            pageQuery.setData(tblShare);
-            pageQuery.setPageIndex(itemRequest.getPageIndex());
-            pageQuery.setPageSize(itemRequest.getPageSize());
-            PageDTO<TblShare> pageDTO = tblShareService.paginQuery(pageQuery);
-            return Response.success(pageDTO.getData());
-        } catch (Throwable t) {
-            log.error("getShareItems exception, ", t);
-            return Response.fail(t.getMessage());
-        }
-    }
 }

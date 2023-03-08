@@ -1,4 +1,4 @@
-package me.zhangjh.wx.program.model;
+package me.zhangjh.wx.program.model.order;
 
 import lombok.Data;
 
@@ -28,9 +28,9 @@ public class TblCoupon {
     private Integer used;
 
     /**
-     * 券类型 { @link me.zhangjh.wx.program.model.CouponEnum }
+     * 券类型 { @link me.zhangjh.wx.program.constant.CouponEnum }
      * */
-    private Integer type;
+    private String type;
 
     /**
      * 如果是折扣券，折扣券额，*100后的数值

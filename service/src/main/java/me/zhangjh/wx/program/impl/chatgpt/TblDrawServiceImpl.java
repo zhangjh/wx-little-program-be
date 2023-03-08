@@ -29,6 +29,11 @@ public class TblDrawServiceImpl implements TblDrawService {
         return tblDrawMapper.queryRandom();
     }
 
+    @Override
+    public int count(TblDraw tblDraw) {
+        return tblDrawMapper.count(tblDraw);
+    }
+
 //    @Override
 //    public PageDTO<TblDraw> paginQuery(PageQuery<TblDraw> query) {
 //        List<TblDraw> tblDraws = tblDrawMapper.queryByPage(query);

@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.share.response.Response;
 import me.zhangjh.share.util.HttpClientUtil;
 import me.zhangjh.wx.program.chatgpt.request.AccountRequest;
-import me.zhangjh.wx.program.model.ProductEnum;
+import me.zhangjh.wx.program.constant.ProductEnum;
 import me.zhangjh.wx.program.service.pinyin.WxAccountService;
 import me.zhangjh.wx.program.util.WXDecryptUtil;
 import me.zhangjh.wx.program.vo.WxUserInfo;

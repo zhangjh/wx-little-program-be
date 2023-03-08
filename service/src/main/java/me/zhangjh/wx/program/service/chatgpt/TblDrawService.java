@@ -31,6 +31,8 @@ public interface TblDrawService {
      */
 //    PageDTO<TblDraw> paginQuery(PageQuery<TblDraw> query);
 
+    int count(TblDraw tblDraw);
+
     /**
      * 新增数据
      *

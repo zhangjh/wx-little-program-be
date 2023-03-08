@@ -1,4 +1,4 @@
-package me.zhangjh.wx.program.model;
+package me.zhangjh.wx.program.constant;
 
 import lombok.Getter;
 

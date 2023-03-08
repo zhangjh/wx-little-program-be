@@ -1,6 +1,6 @@
 package me.zhangjh.wx.program.mapper.chatgpt;
 
-import me.zhangjh.wx.program.model.PageQuery;
+import me.zhangjh.wx.program.model.chatgpt.PageChatQuery;
 import me.zhangjh.wx.program.model.chatgpt.TblChat;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -26,7 +26,7 @@ public interface TblChatMapper {
      * @param query 查询条件
      * @return 对象列表
      */
-    List<TblChat> queryByPage(PageQuery<TblChat> query);
+    List<TblChat> queryByPage(PageChatQuery query);
 
     long count(TblChat tblChat);
 

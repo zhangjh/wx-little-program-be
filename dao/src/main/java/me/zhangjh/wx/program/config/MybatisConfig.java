@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  * @Description
  */
 @Configuration
-@MapperScan(basePackages = "me.zhangjh.wx.program.mapper.chatgpt", sqlSessionFactoryRef = "chatGptSqlSessionFactory")
+@MapperScan(basePackages = "me.zhangjh.wx.program.mapper", sqlSessionFactoryRef = "chatGptSqlSessionFactory")
 public class MybatisConfig {
 
     @Primary
@@ -57,7 +57,7 @@ public class MybatisConfig {
         configuration.setMapUnderscoreToCamelCase(true);
         sqlSessionFactoryBean.setConfiguration(configuration);
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver()
-                .getResources("classpath:mapper/*.xml"));
+                .getResources("classpath:mapper/order/*.xml"));
 
         return sqlSessionFactoryBean.getObject();
     }
@@ -83,7 +83,7 @@ public class MybatisConfig {
     public MapperScannerConfigurer orderMapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
         mapperScannerConfigurer.setSqlSessionFactoryBeanName("orderSqlSessionFactory");
-        mapperScannerConfigurer.setBasePackage("me.zhangjh.wx.program.mapper");
+        mapperScannerConfigurer.setBasePackage("me.zhangjh.wx.program.mapper.order");
         return mapperScannerConfigurer;
     }
 }

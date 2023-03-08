@@ -1,10 +1,7 @@
 package me.zhangjh.wx.program.mapper.chatgpt;
 
-import me.zhangjh.wx.program.model.PageQuery;
 import me.zhangjh.wx.program.model.chatgpt.TblShare;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 /**
  * @author njhxzhangjihong@126.com
@@ -27,15 +24,6 @@ public interface TblShareMapper {
      * */
     TblShare queryByQuery(TblShare tblShare);
 
-    /**
-     * 分页查询指定行数据
-     *
-     * @param query 查询条件
-     * @return 对象列表
-     */
-    List<TblShare> queryByPage(PageQuery<TblShare> query);
-
-    long count(PageQuery<TblShare> query);
 
     /**
      * 新增数据

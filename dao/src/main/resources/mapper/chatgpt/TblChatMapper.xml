@@ -67,17 +67,17 @@
         where is_deleted = 0 and id = #{id}
     </select>
 
-    <select id="queryByPage" resultType="java.util.List" parameterType="me.zhangjh.wx.program.model.PageQuery">
+    <select id="queryByPage" resultType="java.util.List" parameterType="me.zhangjh.wx.program.model.chatgpt.PageChatQuery">
         select
         <include refid="allResult" />
         from tbl_chat
         where is_deleted = 0
         <if test="userId != null">
-            and user_id = #{data.userId}
+            and user_id = #{userId}
         </if>
         <if test="pageIndex != null">
             <if test="pageSize != null">
-                limit #{pageIndex}, #{pageSize}
+                limit ${(pageIndex - 1) * pageSize}, #{pageSize}
             </if>
         </if>
     </select>

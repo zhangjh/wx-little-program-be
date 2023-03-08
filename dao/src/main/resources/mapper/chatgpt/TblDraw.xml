@@ -68,6 +68,19 @@
         WHERE id = #{id};
     </select>
 
+    <select id="count" resultType="java.lang.Integer"
+            parameterType="me.zhangjh.wx.program.model.chatgpt.TblDraw">
+        select count(1)
+        from tbl_draw
+        where is_deleted = 0
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="userId != null">
+            and user_id = #{userId}
+        </if>
+    </select>
+
     <select id="queryRandom" resultType="me.zhangjh.wx.program.model.chatgpt.TblDraw">
         select
         <include refid="allResult" />

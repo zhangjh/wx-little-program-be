@@ -30,7 +30,7 @@
             <dependency>
                 <groupId>me.zhangjh</groupId>
                 <artifactId>share</artifactId>
-                <version>1.0.4</version>
+                <version>1.0.5</version>
             </dependency>
             <dependency>
                 <groupId>me.zhangjh</groupId>
@@ -41,6 +41,11 @@
                 <groupId>com.belerweb</groupId>
                 <artifactId>pinyin4j</artifactId>
                 <version>2.5.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>4.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

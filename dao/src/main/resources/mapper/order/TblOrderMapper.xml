@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.zhangjh.wx.program.mapper.order.TblOrderMapper">
+
+    <insert id="insertTblOrder"  useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `tbl_order`
+        (
+        <trim suffixOverrides=",">
+            <if test="userId!=null">
+                `user_id`,
+            </if>
+            <if test="orderId!=null">
+                `order_id`,
+            </if>
+            <if test="itemCode!=null">
+                `item_code`,
+            </if>
+            <if test="payStatus!=null">
+                `pay_status`,
+            </if>
+            <if test="price!=null">
+                `price`,
+            </if>
+            <if test="couponCode!=null">
+                `coupon_code`,
+            </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+            <if test="userId!=null">
+                #{userId},
+            </if>
+            <if test="orderId!=null">
+                #{orderId},
+            </if>
+            <if test="itemCode!=null">
+                #{itemCode},
+            </if>
+            <if test="payStatus!=null">
+                #{payStatus},
+            </if>
+            <if test="price!=null">
+                #{price},
+            </if>
+            <if test="couponCode!=null">
+                #{couponCode}
+            </if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateTblOrder">
+        UPDATE `tbl_order`
+        SET
+        <trim suffixOverrides=",">
+            <if test="isDeleted != null">
+                `is_deleted` = #{isDeleted},
+            </if>
+            <if test="payStatus != null">
+                `pay_status` = #{payStatus},
+            </if>
+        </trim>
+        WHERE `order_id` = #{orderId}
+    </update>
+
+    <resultMap type="me.zhangjh.wx.program.model.order.TblOrder" id="TblOrderMap">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="userId" column="user_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="itemCode" column="item_code"/>
+        <result property="payStatus" column="pay_status" />
+        <result property="price" column="price" />
+        <result property="couponCode" column="coupon_code" />
+    </resultMap>
+
+    <select id="queryByOrderId" resultMap="TblOrderMap">
+        select * from  `tbl_order`
+        where is_deleted = 0 and `order_id` = #{orderId};
+    </select>
+
+    <select id="queryTblOrder" resultMap="TblOrderMap">
+        select * from  `tbl_order`
+        <trim prefix="where" suffixOverrides="and | or">
+            is_deleted = 0 and
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="userId != null and userId!=''">
+                `user_id` = #{userId} and
+            </if>
+            <if test="orderId != null and orderId!=''">
+                `order_id` = #{orderId} and
+            </if>
+            <if test="itemCode != null">
+                `item_code` = #{itemCode} and
+            </if>
+            <if test="payStatus != null">
+                `pay_status` = #{payStatus} and
+            </if>
+            <if test="payStatusList != null">
+                `pay_status` in
+                <foreach item="payStatus" collection="payStatusList" open="(" separator="," close=")">
+                    #{payStatus}
+                </foreach>
+                and
+            </if>
+            <if test="couponCode != null">
+                `coupon_code` = #{couponCode} and
+            </if>
+        </trim>
+        <if test="pageIndex != null">
+            <if test="pageSize != null">
+                limit ${(pageIndex - 1) * pageSize}, #{pageSize}
+            </if>
+        </if>
+    </select>
+
+    <select id="count" resultType="java.lang.Integer">
+        select count(1) from  `tbl_order`
+        <trim prefix="where" suffixOverrides="and | or">
+            is_deleted = 0 and
+            <if test="userId != null and userId!=''">
+                `user_id` = #{userId} and
+            </if>
+            <if test="orderId != null and orderId!=''">
+                `order_id` = #{orderId} and
+            </if>
+            <if test="itemCode != null">
+                `item_code` = #{itemCode} and
+            </if>
+            <if test="payStatus != null">
+                `pay_status` = #{payStatus} and
+            </if>
+            <if test="payStatusList != null">
+                `pay_status` in
+                <foreach item="payStatus" collection="payStatusList" open="(" separator="," close=")">
+                    #{payStatus}
+                </foreach>
+                and
+            </if>
+            <if test="couponCode != null">
+                `coupon_code` = #{couponCode} and
+            </if>
+        </trim>
+    </select>
+</mapper>

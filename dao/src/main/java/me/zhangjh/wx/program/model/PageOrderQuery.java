@@ -1,0 +1,28 @@
+package me.zhangjh.wx.program.model;
+
+import lombok.Data;
+
+import java.util.List;
+
+/**
+ * @author zhangjh451@midea.com
+ * @date 12:03 AM 2023/3/8
+ * @Description
+ */
+@Data
+public class PageOrderQuery extends PageQuery {
+
+    private Long id;
+
+    private String itemCode;
+
+    private String userId;
+
+    private String orderId;
+
+    private Integer payStatus;
+
+    private List<Integer> payStatusList;
+
+    private String couponCode;
+}

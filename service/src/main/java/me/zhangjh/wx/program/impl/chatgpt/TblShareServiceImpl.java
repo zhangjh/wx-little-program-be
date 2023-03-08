@@ -1,14 +1,10 @@
 package me.zhangjh.wx.program.impl.chatgpt;
 
-import me.zhangjh.wx.program.dto.PageDTO;
 import me.zhangjh.wx.program.mapper.chatgpt.TblShareMapper;
-import me.zhangjh.wx.program.model.PageQuery;
 import me.zhangjh.wx.program.model.chatgpt.TblShare;
 import me.zhangjh.wx.program.service.chatgpt.TblShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * @author njhxzhangjihong@126.com
@@ -30,17 +26,6 @@ public class TblShareServiceImpl implements TblShareService {
     public TblShare queryByQuery(TblShare tblShare) {
         tblShare.setBizStatus(1);
         return tblShareMapper.queryByQuery(tblShare);
-    }
-
-    @Override
-    public PageDTO<TblShare> paginQuery(PageQuery<TblShare> query) {
-        query.getData().setBizStatus(1);
-        List<TblShare> tblShares = tblShareMapper.queryByPage(query);
-        long total = tblShareMapper.count(query);
-        PageDTO<TblShare> pageDTO = new PageDTO<>();
-        pageDTO.setData(tblShares);
-        pageDTO.setTotal((int) total);
-        return pageDTO;
     }
 
     @Override

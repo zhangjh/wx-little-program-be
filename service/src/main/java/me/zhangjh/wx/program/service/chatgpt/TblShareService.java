@@ -1,7 +1,5 @@
 package me.zhangjh.wx.program.service.chatgpt;
 
-import me.zhangjh.wx.program.dto.PageDTO;
-import me.zhangjh.wx.program.model.PageQuery;
 import me.zhangjh.wx.program.model.chatgpt.TblShare;
 
 /**
@@ -24,13 +22,6 @@ public interface TblShareService {
      * */
     TblShare queryByQuery(TblShare tblShare);
 
-    /**
-     * 分页查询
-     *
-     * @param query 筛选条件
-     * @return 查询结果
-     */
-    PageDTO<TblShare> paginQuery(PageQuery<TblShare> query);
     /**
      * 新增数据
      *

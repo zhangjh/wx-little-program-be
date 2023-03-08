@@ -1,6 +1,5 @@
 package me.zhangjh.wx.program.mapper.chatgpt;
 
-import me.zhangjh.wx.program.model.PageQuery;
 import me.zhangjh.wx.program.model.chatgpt.TblDraw;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -24,15 +23,7 @@ public interface TblDrawMapper {
 
     List<TblDraw> queryRandom();
 
-    /**
-     * 分页查询指定行数据
-     *
-     * @param query  查询条件
-     * @return 对象列表
-     */
-//    List<TblDraw> queryByPage(PageQuery<TblDraw> query);
-
-    long count(PageQuery<TblDraw> query);
+    int count(TblDraw tblDraw);
 
     /**
      * 新增数据
