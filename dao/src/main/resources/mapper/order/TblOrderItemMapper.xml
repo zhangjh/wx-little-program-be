@@ -72,11 +72,10 @@
 
     <select id="queryByCodes" resultMap="TblOrderItemMap">
         select * from  `tbl_order_item`
-        where `code` in (
-            <foreach item="itemCode" collection="itemCodes" open="(" separator="," close=")">
-                #{itemCode}
-            </foreach>
-        )
+        where `code` in
+        <foreach item="itemCode" collection="itemCodes" open="(" separator="," close=")">
+            #{itemCode}
+        </foreach>
         and is_deleted = 0;
     </select>
 
