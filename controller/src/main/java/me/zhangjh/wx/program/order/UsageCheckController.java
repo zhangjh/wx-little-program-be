@@ -78,6 +78,7 @@ public class UsageCheckController {
     public Response<Map<String, Integer>> queryRemainingResources(String userId) {
         Assert.isTrue(StringUtils.isNotEmpty(userId), "userId为空");
         Map<String, Integer> map = new HashMap<>(2);
+        // 默认免费赠送的额度
         int chatTotal = 10;
         int drawTotal = 5;
         // 统计所有订单
@@ -96,10 +97,10 @@ public class UsageCheckController {
                     .filter(item -> item.getProduct().equals(OrderItemEnum.DRAW.name()))
                     .mapToInt(TblOrderItem::getAmount).sum();
             if(chatSum > 0) {
-                chatTotal = chatSum;
+                chatTotal += chatSum;
             }
             if(drawSum > 0) {
-                drawTotal = drawSum;
+                drawTotal += drawSum;
             }
         }
         map.put(OrderItemEnum.CHATGPT.name(), chatTotal);
