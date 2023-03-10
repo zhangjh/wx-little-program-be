@@ -1,6 +1,6 @@
 package me.zhangjh.wx.program.service.pinyin;
 
-import me.zhangjh.wx.program.model.pinyin.TblAccount;
+import me.zhangjh.wx.program.model.common.TblAccount;
 
 /**
  * @author njhxzhangjihong@126.com
@@ -11,7 +11,9 @@ public interface WxAccountService {
 
     TblAccount insert(TblAccount tblAccount);
 
-    TblAccount queryById(String extId, Integer extType, String productType);
+    TblAccount update(TblAccount tblAccount);
+
+    TblAccount queryById(Long id);
 
     TblAccount queryByExtId(String extId, Integer extType);
 }

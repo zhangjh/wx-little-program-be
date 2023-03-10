@@ -1,6 +1,7 @@
-package me.zhangjh.wx.program.model;
+package me.zhangjh.wx.program.model.order;
 
 import lombok.Data;
+import me.zhangjh.wx.program.model.common.PageQuery;
 
 import java.util.List;
 

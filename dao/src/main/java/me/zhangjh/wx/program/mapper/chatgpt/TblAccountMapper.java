@@ -18,6 +18,8 @@ public interface TblAccountMapper {
      */
     TblAccount queryById(String id);
 
+    TblAccount queryByExtId(String extId);
+
     /**
      * 新增数据
      *

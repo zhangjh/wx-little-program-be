@@ -7,6 +7,7 @@ import me.zhangjh.share.response.Response;
 import me.zhangjh.share.util.HttpClientUtil;
 import me.zhangjh.wx.program.chatgpt.request.AccountRequest;
 import me.zhangjh.wx.program.constant.ProductEnum;
+import me.zhangjh.wx.program.model.common.TblAccount;
 import me.zhangjh.wx.program.service.pinyin.WxAccountService;
 import me.zhangjh.wx.program.util.WXDecryptUtil;
 import me.zhangjh.wx.program.vo.WxUserInfo;
@@ -112,16 +113,35 @@ public class WxController {
      * */
     @PostMapping("/saveWxUser")
     public Response<Void> saveWxUser(@RequestBody AccountRequest req) {
-        me.zhangjh.wx.program.model.pinyin.TblAccount tblAccount =
-                new me.zhangjh.wx.program.model.pinyin.TblAccount();
+        TblAccount tblAccount = new TblAccount();
         Assert.isTrue(StringUtils.isNotEmpty(req.getUserId()), "userId为空");
         Assert.isTrue(StringUtils.isNotEmpty(req.getProductType()), "productType为空");
+        TblAccount existedUser = wxAccountService.queryByExtId(req.getUserId(), req.getExtType());
+        if(existedUser != null) {
+           return Response.success(null);
+        }
         tblAccount.setExtId(req.getUserId());
         tblAccount.setExtType(1);
         tblAccount.setAvatar(req.getAvatarUrl());
         tblAccount.setName(req.getNickName());
         tblAccount.setProductType(req.getProductType());
         wxAccountService.insert(tblAccount);
+        return Response.success(null);
+    }
+
+    @PostMapping("/updateUser")
+    public Response<Void> updateUser(@RequestBody AccountRequest req) {
+        String userId = req.getUserId();
+        String nickName = req.getNickName();
+        String avatarUrl = req.getAvatarUrl();
+        Assert.isTrue(StringUtils.isNotEmpty(userId), "userId为空");
+        TblAccount tblAccount = new TblAccount();
+        tblAccount.setName(nickName);
+        tblAccount.setAvatar(avatarUrl);
+        tblAccount.setExtId(userId);
+        tblAccount.setExtType(1);
+        tblAccount.setProductType(ProductEnum.valueOf(req.getProductType()).name());
+        wxAccountService.update(tblAccount);
         return Response.success(null);
     }
 }

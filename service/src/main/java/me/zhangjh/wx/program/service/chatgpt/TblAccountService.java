@@ -16,6 +16,8 @@ public interface TblAccountService {
      */
     TblAccount queryById(String id);
 
+    TblAccount queryByExtId(String userId);
+
     /**
      * 新增数据
      *

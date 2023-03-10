@@ -1,7 +1,7 @@
 package me.zhangjh.wx.program.impl.order;
 
 import me.zhangjh.wx.program.mapper.order.TblOrderMapper;
-import me.zhangjh.wx.program.model.PageOrderQuery;
+import me.zhangjh.wx.program.model.order.PageOrderQuery;
 import me.zhangjh.wx.program.model.order.TblOrder;
 import me.zhangjh.wx.program.service.order.TblOrderService;
 import org.springframework.beans.factory.annotation.Autowired;

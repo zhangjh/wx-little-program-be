@@ -12,6 +12,8 @@ public class AccountRequest {
 
     private String userId;
 
+    private Integer extType;
+
     private String nickName;
 
     private String avatarUrl;

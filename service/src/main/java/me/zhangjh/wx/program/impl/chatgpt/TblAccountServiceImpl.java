@@ -23,6 +23,11 @@ public class TblAccountServiceImpl implements TblAccountService {
     }
 
     @Override
+    public TblAccount queryByExtId(String userId) {
+        return tblAccountMapper.queryByExtId(userId);
+    }
+
+    @Override
     public TblAccount insert(TblAccount tblAccount) {
         tblAccountMapper.insert(tblAccount);
         return tblAccount;

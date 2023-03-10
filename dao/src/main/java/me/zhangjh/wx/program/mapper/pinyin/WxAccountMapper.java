@@ -1,6 +1,6 @@
 package me.zhangjh.wx.program.mapper.pinyin;
 
-import me.zhangjh.wx.program.model.pinyin.TblAccount;
+import me.zhangjh.wx.program.model.common.TblAccount;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -12,6 +12,8 @@ public interface WxAccountMapper {
     int insertTblAccount(TblAccount tblAccount);
 
     int update(TblAccount tblAccount);
+
+    TblAccount queryById(Long id);
 
     TblAccount query(TblAccount tblAccount);
 

@@ -61,7 +61,7 @@
         UPDATE `tbl_account`
         SET
         <trim suffixOverrides=",">
-            <if test="is_deleted != null">
+            <if test="isDeleted != null">
                 `is_deleted` = #{is_deleted},
             </if>
             <if test="nickName != null and nickName!=''">
@@ -71,7 +71,18 @@
                 `avatar` = #{avatar},
             </if>
         </trim>
-        WHERE `id` = #{id} and is_deleted = 0;
+        <trim prefix="where" suffixOverrides="and">
+            is_deleted = 0 and
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="extId != null and extId!=''">
+                `ext_id` = #{extId} and
+            </if>
+            <if test="extType != null">
+                `ext_type` = #{extType} and
+            </if>
+        </trim>
     </update>
 
     <delete id="deleteById">
@@ -84,6 +95,12 @@
         select *
         from  `tbl_account`
         where `id` = #{id} and is_deleted = 0;
+    </select>
+
+    <select id="queryByExtId" resultMap="TblAccount">
+        select *
+        from  `tbl_account`
+        where `ext_id` = #{extId} and is_deleted = 0;
     </select>
 
 </mapper>

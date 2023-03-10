@@ -2,7 +2,7 @@ package me.zhangjh.wx.program.pinyin;
 
 import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.share.response.Response;
-import me.zhangjh.wx.program.model.pinyin.TblAccount;
+import me.zhangjh.wx.program.model.common.TblAccount;
 import me.zhangjh.wx.program.model.pinyin.TblWrongs;
 import me.zhangjh.wx.program.service.pinyin.TblWrongsService;
 import me.zhangjh.wx.program.service.pinyin.WxAccountService;

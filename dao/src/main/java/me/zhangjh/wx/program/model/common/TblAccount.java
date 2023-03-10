@@ -1,4 +1,4 @@
-package me.zhangjh.wx.program.model.pinyin;
+package me.zhangjh.wx.program.model.common;
 
 import lombok.Data;
 

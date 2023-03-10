@@ -1,7 +1,7 @@
 package me.zhangjh.wx.program.mapper.order;
 
-import me.zhangjh.wx.program.model.PageOrderQuery;
-import me.zhangjh.wx.program.model.PageQuery;
+import me.zhangjh.wx.program.model.order.PageOrderQuery;
+import me.zhangjh.wx.program.model.common.PageQuery;
 import me.zhangjh.wx.program.model.order.TblOrder;
 import org.apache.ibatis.annotations.Mapper;
 

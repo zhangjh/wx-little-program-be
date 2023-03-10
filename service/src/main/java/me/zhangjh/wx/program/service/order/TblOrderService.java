@@ -1,6 +1,6 @@
 package me.zhangjh.wx.program.service.order;
 
-import me.zhangjh.wx.program.model.PageOrderQuery;
+import me.zhangjh.wx.program.model.order.PageOrderQuery;
 import me.zhangjh.wx.program.model.order.TblOrder;
 
 import java.util.List;

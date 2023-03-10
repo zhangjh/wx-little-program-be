@@ -68,10 +68,24 @@
                 `mobile` = #{mobile},
             </if>
         </trim>
-        WHERE `id` = #{id} and is_deleted = 0
+        <trim prefix="where" suffixOverrides="and">
+            is_deleted = 0 and
+            <if test="id != null">
+                `id` = #{id} and
+            </if>
+            <if test="extId != null and extId!=''">
+                `ext_id` = #{extId} and
+            </if>
+            <if test="extType != null">
+                `ext_type` = #{extType} and
+            </if>
+            <if test="productType != null">
+                `product_type` = #{productType} and
+            </if>
+        </trim>
     </update>
 
-    <resultMap type="me.zhangjh.wx.program.model.pinyin.TblAccount" id="TblAccountMap">
+    <resultMap type="me.zhangjh.wx.program.model.common.TblAccount" id="TblAccountMap">
         <result property="id" column="id"/>
         <result property="createTime" column="create_time"/>
         <result property="modifyTime" column="modify_time"/>
@@ -107,6 +121,12 @@
         </trim>
     </select>
 
+    <select id="queryById"  resultMap="TblAccountMap">
+        select *
+        from  `tbl_account`
+        where `id` = #{id}
+        and is_deleted = 0;
+    </select>
 
     <select id="queryByExtId" resultMap="TblAccountMap">
         select *

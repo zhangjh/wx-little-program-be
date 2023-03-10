@@ -10,7 +10,9 @@ import me.zhangjh.wx.program.model.chatgpt.TblAccount;
 import me.zhangjh.wx.program.model.chatgpt.TblChat;
 import me.zhangjh.wx.program.service.chatgpt.TblAccountService;
 import me.zhangjh.wx.program.service.chatgpt.TblChatService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +42,7 @@ public class UserController {
             userRequest.headerCheck(req);
             userRequest.check();
 
-            TblAccount tblAccount = tblAccountService.queryById(userId);
+            TblAccount tblAccount = tblAccountService.queryByExtId(userId);
             return Response.success(tblAccount);
         } catch (Throwable t) {
             log.error("queryUserById exception, ", t);
@@ -72,6 +74,10 @@ public class UserController {
     public Response<Void> saveUser(@RequestBody AccountRequest req) {
         try {
             String userId = req.getUserId();
+            TblAccount existedUser = tblAccountService.queryByExtId(userId);
+            if(existedUser != null) {
+                return Response.success(null);
+            }
             String avatar = req.getAvatarUrl();
             String nickName = req.getNickName();
             TblAccount tblAccount = new TblAccount();
@@ -86,5 +92,20 @@ public class UserController {
             log.error("saveUser exception, ", t);
             return Response.fail(t.getMessage());
         }
+    }
+
+    @PostMapping("/updateUser")
+    public Response<Void> updateUser(@RequestBody AccountRequest req) {
+        String userId = req.getUserId();
+        String nickName = req.getNickName();
+        String avatarUrl = req.getAvatarUrl();
+        Assert.isTrue(StringUtils.isNotEmpty(userId), "userId为空");
+        TblAccount tblAccount = new TblAccount();
+        tblAccount.setExtId(userId);
+        tblAccount.setExtType(1);
+        tblAccount.setAvatar(avatarUrl);
+        tblAccount.setNickName(nickName);
+        tblAccountService.update(tblAccount);
+        return Response.success(null);
     }
 }

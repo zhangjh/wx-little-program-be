@@ -1,7 +1,7 @@
 package me.zhangjh.wx.program.model.chatgpt;
 
 import lombok.Data;
-import me.zhangjh.wx.program.model.PageQuery;
+import me.zhangjh.wx.program.model.common.PageQuery;
 
 /**
  * @author njhxzhangjihong@126.com
