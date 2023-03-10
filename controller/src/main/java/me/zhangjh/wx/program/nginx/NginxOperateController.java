@@ -22,7 +22,7 @@ import java.util.Objects;
  * @Description
  */
 @RestController
-@RequestMapping("/nginx")
+@RequestMapping("/wx/nginx")
 @CrossOrigin
 @Slf4j
 public class NginxOperateController {
