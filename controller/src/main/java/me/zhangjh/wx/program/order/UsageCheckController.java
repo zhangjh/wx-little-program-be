@@ -91,10 +91,10 @@ public class UsageCheckController {
         if(CollectionUtils.isNotEmpty(itemCodes)) {
             List<TblOrderItem> tblOrderItems = tblOrderItemService.queryByCodes(itemCodes);
             int chatSum = tblOrderItems.stream()
-                    .filter(item -> item.getProduct().equals(OrderItemEnum.CHATGPT.name()))
+                    .filter(item -> item.getCode().toUpperCase().startsWith(OrderItemEnum.CHATGPT.name()))
                     .mapToInt(TblOrderItem::getAmount).sum();
             int drawSum = tblOrderItems.stream()
-                    .filter(item -> item.getProduct().equals(OrderItemEnum.DRAW.name()))
+                    .filter(item -> item.getCode().toUpperCase().startsWith(OrderItemEnum.DRAW.name()))
                     .mapToInt(TblOrderItem::getAmount).sum();
             if(chatSum > 0) {
                 chatTotal += chatSum;
