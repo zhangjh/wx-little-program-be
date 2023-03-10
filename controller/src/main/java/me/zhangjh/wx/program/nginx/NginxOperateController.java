@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.Objects;
 
 /**
  * @author zhangjh451@midea.com
@@ -31,7 +33,9 @@ public class NginxOperateController {
 
     @SneakyThrows
     @GetMapping("/update")
-    public Response<Void> updateAndReload(String imgUrl) {
+    public Response<Void> updateAndReload(String imgUrl, HttpServletRequest req) {
+        String secret = req.getHeader("secret");
+        Assert.isTrue(Objects.equals(secret, "wired_sheep"), "secret错误");
         // 读取nginx配置文件内容
         StringBuilder configContentBuilder = new StringBuilder();
         File configFile = new File(NGINX_CONFIG_FILE_PATH);
