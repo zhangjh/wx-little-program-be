@@ -110,7 +110,7 @@ public class OrderController {
         if(StringUtils.isNotEmpty(couponCode)) {
             TblCoupon tblCoupon = tblCouponService.queryByCode(couponCode);
             if(tblCoupon == null) {
-                return Response.fail("无效的优惠券");
+                return Response.fail("无效或已使用的优惠券");
             }
             // 计算优惠券的折扣，扩大了100倍
             int discount = 0;
