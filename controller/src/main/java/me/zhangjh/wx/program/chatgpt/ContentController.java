@@ -21,15 +21,19 @@ import me.zhangjh.wx.program.model.chatgpt.TblQuestion;
 import me.zhangjh.wx.program.service.chatgpt.TblChatService;
 import me.zhangjh.wx.program.service.chatgpt.TblDrawService;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.config.RequestConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.*;
+import java.util.concurrent.Executors;
 
 /**
  * @author njhxzhangjihong@126.com
@@ -229,6 +233,40 @@ public class ContentController {
         return Response.success(answer);
     }
 
+    @PostMapping("/chatStream")
+    public SseEmitter getChatStream(@RequestBody ChatRequest chatRequest, HttpServletRequest req) {
+        String userId = req.getHeader("userId");
+        Assert.isTrue(StringUtils.isNotEmpty(userId), "userId为空");
+        chatRequest.headerCheck(req);
+        chatRequest.check();
+        // 构建本次提问上下文
+        List<Message> messages = new ArrayList<>();
+
+        String question = URLDecoder.decode(chatRequest.getQuestion());
+        Map<String, String> contextMap = chatRequest.getContextMap();
+        if(MapUtils.isNotEmpty(contextMap)) {
+            for (Map.Entry<String, String> entry : contextMap.entrySet()) {
+                String key = entry.getKey();
+                String value = entry.getValue();
+                Message q = new Message();
+                q.setRole(RoleEnum.user.name());
+                q.setContent(key);
+                messages.add(q);
+                Message answer = new Message();
+                answer.setRole(RoleEnum.assistant.name());
+                answer.setContent(value);
+                messages.add(answer);
+            }
+        }
+        me.zhangjh.chatgpt.dto.request.ChatRequest request = new me.zhangjh.chatgpt.dto.request.ChatRequest();
+        Message message = new Message();
+        message.setRole(RoleEnum.user.name());
+        message.setContent(question);
+        messages.add(message);
+        request.setMessages(messages);
+        return chatGptService.createChatCompletionStream(request);
+    }
+
     @GetMapping("/draw")
     public Response<String> getPicture(DrawRequest drawRequest, HttpServletRequest req) {
         try {
@@ -266,10 +304,33 @@ public class ContentController {
         }
     }
 
+    @GetMapping("/newDraw")
+    public Response<String> getNewDraw(DrawRequest drawRequest, HttpServletRequest req) {
+        return Response.success("");
+    }
+
     @GetMapping("/getTips")
     public Response<String> getTips() {
         String tips = "已接入最新ChatGpt模型，智能升级，效果提升显著！！接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时重试或更换时段~~";
         return Response.success(tips);
+    }
+
+    @GetMapping("/sse")
+    public SseEmitter getSse() {
+        final SseEmitter emitter = new SseEmitter(0L);
+
+        Executors.newFixedThreadPool(1).execute(() -> {
+            try {
+                for(int i=0;i < 100;i++){
+                    emitter.send("hello" + i);
+                    Thread.sleep(1000);
+                }
+                emitter.complete();
+            } catch (Exception e) {
+                emitter.completeWithError(e);
+            }
+        });
+        return emitter;
     }
 
     private void recordChat(String userId, String question, String answer) {
