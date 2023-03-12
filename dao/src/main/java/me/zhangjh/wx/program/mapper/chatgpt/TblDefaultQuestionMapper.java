@@ -10,7 +10,6 @@ import java.util.List;
  * @date 10:09 AM 2023/2/14
  * @Description
  */
-@Mapper
 public interface TblDefaultQuestionMapper {
 
     TblQuestion insert(TblQuestion tblQuestion);

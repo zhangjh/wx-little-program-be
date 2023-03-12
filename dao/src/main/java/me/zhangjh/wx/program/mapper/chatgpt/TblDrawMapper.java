@@ -1,7 +1,6 @@
 package me.zhangjh.wx.program.mapper.chatgpt;
 
 import me.zhangjh.wx.program.model.chatgpt.TblDraw;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -10,8 +9,6 @@ import java.util.List;
  * @date 4:28 PM 2023/2/4
  * @Description
  */
-
-@Mapper
 public interface TblDrawMapper {
     /**
      * 通过ID查询单条数据

@@ -2,7 +2,6 @@ package me.zhangjh.wx.program.mapper.chatgpt;
 
 import me.zhangjh.wx.program.model.chatgpt.PageChatQuery;
 import me.zhangjh.wx.program.model.chatgpt.TblChat;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -11,7 +10,6 @@ import java.util.List;
  * @date 4:41 PM 2023/2/4
  * @Description
  */
-@Mapper
 public interface TblChatMapper {
     /**
      * 通过ID查询单条数据

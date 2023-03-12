@@ -1,12 +1,10 @@
 package me.zhangjh.wx.program.mapper.pinyin;
 
 import me.zhangjh.wx.program.model.common.TblAccount;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
 *  @author author
 */
-@Mapper
 public interface WxAccountMapper {
 
     int insertTblAccount(TblAccount tblAccount);

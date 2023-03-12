@@ -8,7 +8,6 @@ import java.util.List;
 /**
 *  @author author
 */
-@Mapper
 public interface TblCouponMapper {
 
     int insertTblCoupon(TblCoupon object);

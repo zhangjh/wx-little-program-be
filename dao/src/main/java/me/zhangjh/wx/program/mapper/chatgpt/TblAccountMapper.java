@@ -1,14 +1,12 @@
 package me.zhangjh.wx.program.mapper.chatgpt;
 
 import me.zhangjh.wx.program.model.chatgpt.TblAccount;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @author njhxzhangjihong@126.com
  * @date 4:40 PM 2023/2/4
  * @Description
  */
-@Mapper
 public interface TblAccountMapper {
     /**
      * 通过ID查询单条数据
