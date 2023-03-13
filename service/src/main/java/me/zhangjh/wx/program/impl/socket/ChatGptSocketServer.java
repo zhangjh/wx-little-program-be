@@ -65,6 +65,7 @@ public class ChatGptSocketServer extends SocketServer {
                     for (ChatStreamRet ret : delta) {
                         String content = ret.getContent();
                         answerCache.append(content);
+                        log.info("answerCache: {}",answerCache.toString());
                         super.sendMessage(userId, content, bizContent);
                     }
                 }
