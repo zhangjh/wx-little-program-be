@@ -1,6 +1,7 @@
 package me.zhangjh.wx.program.chatgpt;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.chatgpt.client.ChatGptService;
 import me.zhangjh.chatgpt.constant.RoleEnum;
@@ -15,7 +16,6 @@ import me.zhangjh.share.response.Response;
 import me.zhangjh.share.util.HttpClientUtil;
 import me.zhangjh.wx.program.chatgpt.request.ChatRequest;
 import me.zhangjh.wx.program.chatgpt.request.DrawRequest;
-import me.zhangjh.wx.program.impl.socket.ChatSocketServer;
 import me.zhangjh.wx.program.model.chatgpt.TblChat;
 import me.zhangjh.wx.program.model.chatgpt.TblDraw;
 import me.zhangjh.wx.program.model.chatgpt.TblQuestion;
@@ -126,9 +126,6 @@ public class ContentController {
     @Autowired
     private TblDrawService tblDrawService;
 
-    @Autowired
-    private ChatSocketServer chatSocketServer;
-
     @RequestMapping("/defaultQuestions")
     public Response<List<TblQuestion>> getDefaultQuestions() {
         try {
@@ -238,11 +235,13 @@ public class ContentController {
     }
 
     @PostMapping("/chatStream")
+    @SneakyThrows
     public SseEmitter getChatStream(@RequestBody ChatRequest chatRequest, HttpServletRequest req) {
         String userId = req.getHeader("userId");
         Assert.isTrue(StringUtils.isNotEmpty(userId), "userId为空");
         chatRequest.headerCheck(req);
         chatRequest.check();
+
         // 构建本次提问上下文
         List<Message> messages = new ArrayList<>();
 
@@ -268,7 +267,6 @@ public class ContentController {
         message.setContent(question);
         messages.add(message);
         request.setMessages(messages);
-        request.setConsumerCb(chatSocketServer::sendMessage);
         return chatGptService.createChatCompletionStream(request);
     }
 
