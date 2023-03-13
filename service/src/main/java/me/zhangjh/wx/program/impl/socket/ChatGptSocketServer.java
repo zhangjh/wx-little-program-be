@@ -5,11 +5,15 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.chatgpt.config.HttpSessionWSHelper;
+import me.zhangjh.chatgpt.dto.request.ChatRequest;
 import me.zhangjh.chatgpt.dto.response.ChatResponse;
 import me.zhangjh.chatgpt.dto.response.ChatRet;
 import me.zhangjh.chatgpt.dto.response.ChatStreamRet;
 import me.zhangjh.chatgpt.socket.SocketServer;
+import me.zhangjh.wx.program.model.chatgpt.TblChat;
+import me.zhangjh.wx.program.service.chatgpt.TblChatService;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.server.ServerEndpoint;
@@ -27,8 +31,13 @@ import java.util.List;
 @Component
 public class ChatGptSocketServer extends SocketServer {
 
+    private StringBuilder answerCache = new StringBuilder();
+
+    @Autowired
+    private TblChatService tblChatService;
+
     @Override
-    public void sendMessage(String userId, String message) {
+    public void sendMessage(String userId, String message, String bizContent) {
         // message格式：
         // {
         //  "id":"chatcmpl-6tYOeumTA8x1jMQTx5bI6s97qkrDY",
@@ -38,10 +47,13 @@ public class ChatGptSocketServer extends SocketServer {
         //  "choices":[{"delta":{"content":" model"},
         //  "index":0,"finish_reason":null}]}
         if(StringUtils.isNotEmpty(message)) {
-            log.info("message: {}", message);
             // 结束标记
             if("data: [DONE]".equals(message)) {
-                super.sendMessage(userId, message);
+                super.sendMessage(userId, message, bizContent);
+                // 流式响应结果在结束标记这里记录
+                record(userId, bizContent);
+                // 清空缓存
+                answerCache.delete(0, answerCache.length() - 1);
                 return;
             }
             if(message.startsWith("data:")) {
@@ -52,10 +64,20 @@ public class ChatGptSocketServer extends SocketServer {
                     List<ChatStreamRet> delta = choice.getDelta();
                     for (ChatStreamRet ret : delta) {
                         String content = ret.getContent();
-                        super.sendMessage(userId, content);
+                        answerCache.append(content);
+                        super.sendMessage(userId, content, bizContent);
                     }
                 }
             }
         }
+    }
+
+    private void record(String userId, String bizContent) {
+        ChatRequest chatRequest = JSONObject.parseObject(bizContent, ChatRequest.class);
+        TblChat tblChat = new TblChat();
+        tblChat.setUserId(userId);
+        tblChat.setQuestion(chatRequest.getMessages().get(0).getContent());
+        tblChat.setAnswer(answerCache.toString());
+        tblChatService.insert(tblChat);
     }
 }
