@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 import me.zhangjh.chatgpt.config.HttpSessionWSHelper;
+import me.zhangjh.chatgpt.dto.Message;
 import me.zhangjh.chatgpt.dto.request.ChatRequest;
 import me.zhangjh.chatgpt.dto.response.ChatResponse;
 import me.zhangjh.chatgpt.dto.response.ChatRet;
@@ -53,7 +54,7 @@ public class ChatGptSocketServer extends SocketServer {
                 // 流式响应结果在结束标记这里记录
                 record(userId, bizContent);
                 // 清空缓存
-                answerCache.delete(0, answerCache.length() - 1);
+                answerCache = new StringBuilder();
                 return;
             }
             if(message.startsWith("data:")) {
@@ -79,7 +80,9 @@ public class ChatGptSocketServer extends SocketServer {
         ChatRequest chatRequest = JSONObject.parseObject(bizContent, ChatRequest.class);
         TblChat tblChat = new TblChat();
         tblChat.setUserId(userId);
-        tblChat.setQuestion(chatRequest.getMessages().get(0).getContent());
+        // messages里最后一个是本次问题
+        List<Message> messages = chatRequest.getMessages();
+        tblChat.setQuestion(messages.get(messages.size() - 1).getContent());
         tblChat.setAnswer(answerCache.toString());
         log.info("tblChat: {}", tblChat);
         tblChatService.insert(tblChat);
