@@ -15,6 +15,7 @@ import me.zhangjh.share.response.Response;
 import me.zhangjh.share.util.HttpClientUtil;
 import me.zhangjh.wx.program.chatgpt.request.ChatRequest;
 import me.zhangjh.wx.program.chatgpt.request.DrawRequest;
+import me.zhangjh.wx.program.impl.socket.ChatSocketServer;
 import me.zhangjh.wx.program.model.chatgpt.TblChat;
 import me.zhangjh.wx.program.model.chatgpt.TblDraw;
 import me.zhangjh.wx.program.model.chatgpt.TblQuestion;
@@ -125,6 +126,9 @@ public class ContentController {
     @Autowired
     private TblDrawService tblDrawService;
 
+    @Autowired
+    private ChatSocketServer chatSocketServer;
+
     @RequestMapping("/defaultQuestions")
     public Response<List<TblQuestion>> getDefaultQuestions() {
         try {
@@ -201,7 +205,7 @@ public class ContentController {
         // 构建本次提问上下文
         List<Message> messages = new ArrayList<>();
 
-        String question = URLDecoder.decode(chatRequest.getQuestion());
+        String question = URLDecoder.decode(chatRequest.getQuestion(), Charset.defaultCharset());
         Map<String, String> contextMap = chatRequest.getContextMap();
         if(MapUtils.isNotEmpty(contextMap)) {
             for (Map.Entry<String, String> entry : contextMap.entrySet()) {
@@ -242,7 +246,7 @@ public class ContentController {
         // 构建本次提问上下文
         List<Message> messages = new ArrayList<>();
 
-        String question = URLDecoder.decode(chatRequest.getQuestion());
+        String question = URLDecoder.decode(chatRequest.getQuestion(), Charset.defaultCharset());
         Map<String, String> contextMap = chatRequest.getContextMap();
         if(MapUtils.isNotEmpty(contextMap)) {
             for (Map.Entry<String, String> entry : contextMap.entrySet()) {
@@ -264,6 +268,7 @@ public class ContentController {
         message.setContent(question);
         messages.add(message);
         request.setMessages(messages);
+        request.setConsumerCb(chatSocketServer::sendMessage);
         return chatGptService.createChatCompletionStream(request);
     }
 

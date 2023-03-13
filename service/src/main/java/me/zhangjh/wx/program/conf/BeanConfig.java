@@ -7,6 +7,7 @@ import me.zhangjh.wx.program.model.chatgpt.TblApiKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
 /**
  * @author njhxzhangjihong@126.com
@@ -26,5 +27,10 @@ public class BeanConfig {
         ChatGptServiceImpl chatGptService = new ChatGptServiceImpl();
         chatGptService.setApiKey(apiKey.getApiKey());
         return chatGptService;
+    }
+
+    @Bean
+    public ServerEndpointExporter serverEndpointExporter() {
+        return new ServerEndpointExporter();
     }
 }
