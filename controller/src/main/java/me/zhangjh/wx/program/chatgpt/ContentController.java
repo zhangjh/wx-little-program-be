@@ -242,6 +242,10 @@ public class ContentController {
         chatRequest.headerCheck(req);
         chatRequest.check();
 
+        Map<String, String> header = new HashMap<>(1);
+        header.put("userId", userId);
+        chatGptService.setHeader(header);
+
         // 构建本次提问上下文
         List<Message> messages = new ArrayList<>();
 
