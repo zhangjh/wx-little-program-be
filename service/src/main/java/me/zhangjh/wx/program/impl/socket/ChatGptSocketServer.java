@@ -39,6 +39,11 @@ public class ChatGptSocketServer extends SocketServer {
         //  "index":0,"finish_reason":null}]}
         if(StringUtils.isNotEmpty(message)) {
             log.info("message: {}", message);
+            // 结束标记
+            if("data: [DONE]".equals(message)) {
+                super.sendMessage(userId, message);
+                return;
+            }
             if(message.startsWith("data:")) {
                 String data = message.substring(6);
                 ChatResponse chatResponse = JSONObject.parseObject(data, ChatResponse.class);
