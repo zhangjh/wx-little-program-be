@@ -67,7 +67,6 @@ public class ChatGptSocketServer extends SocketServer {
                         String content = ret.getContent();
                         if(StringUtils.isNotEmpty(content)) {
                             answerCache.append(content.trim());
-                            log.info("answerCache: {}", answerCache);
                         }
                         super.sendMessage(userId, content, bizContent);
                     }
@@ -84,7 +83,6 @@ public class ChatGptSocketServer extends SocketServer {
         List<Message> messages = chatRequest.getMessages();
         tblChat.setQuestion(messages.get(messages.size() - 1).getContent());
         tblChat.setAnswer(answerCache.toString());
-        log.info("tblChat: {}", tblChat);
         tblChatService.insert(tblChat);
     }
 }
