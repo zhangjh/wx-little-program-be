@@ -78,6 +78,7 @@ public class ChatGptSocketServer extends SocketServer {
         tblChat.setUserId(userId);
         tblChat.setQuestion(chatRequest.getMessages().get(0).getContent());
         tblChat.setAnswer(answerCache.toString());
+        log.info("tblChat: {}", tblChat);
         tblChatService.insert(tblChat);
     }
 }
