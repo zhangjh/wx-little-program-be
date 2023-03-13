@@ -38,6 +38,7 @@ public class ChatGptSocketServer extends SocketServer {
         //  "choices":[{"delta":{"content":" model"},
         //  "index":0,"finish_reason":null}]}
         if(StringUtils.isNotEmpty(message)) {
+            log.info("message: {}", message);
             ChatResponse chatResponse = JSONObject.parseObject(message, ChatResponse.class);
             List<ChatRet> choices = chatResponse.getChoices();
             for (ChatRet choice : choices) {
