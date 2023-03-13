@@ -2,7 +2,6 @@ package me.zhangjh.wx.program.conf;
 
 import me.zhangjh.chatgpt.client.ChatGptService;
 import me.zhangjh.chatgpt.service.ChatGptServiceImpl;
-import me.zhangjh.chatgpt.socket.ChatSocketServer;
 import me.zhangjh.wx.program.mapper.chatgpt.TblApiKeyMapper;
 import me.zhangjh.wx.program.model.chatgpt.TblApiKey;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +34,4 @@ public class BeanConfig {
         return new ServerEndpointExporter();
     }
 
-    @Bean
-    public ChatSocketServer chatSocketServer() {
-        return new ChatSocketServer();
-    }
 }
