@@ -16,6 +16,7 @@ import me.zhangjh.share.response.Response;
 import me.zhangjh.share.util.HttpClientUtil;
 import me.zhangjh.wx.program.chatgpt.request.ChatRequest;
 import me.zhangjh.wx.program.chatgpt.request.DrawRequest;
+import me.zhangjh.wx.program.impl.socket.ChatGptSocketServer;
 import me.zhangjh.wx.program.model.chatgpt.TblChat;
 import me.zhangjh.wx.program.model.chatgpt.TblDraw;
 import me.zhangjh.wx.program.model.chatgpt.TblQuestion;
@@ -125,6 +126,9 @@ public class ContentController {
 
     @Autowired
     private TblDrawService tblDrawService;
+
+    @Autowired
+    private ChatGptSocketServer chatGptSocketServer;
 
     @RequestMapping("/defaultQuestions")
     public Response<List<TblQuestion>> getDefaultQuestions() {
@@ -271,7 +275,7 @@ public class ContentController {
         message.setContent(question);
         messages.add(message);
         request.setMessages(messages);
-        return chatGptService.createChatCompletionStream(request);
+        return chatGptService.createChatCompletionStream(request, chatGptSocketServer);
     }
 
     @GetMapping("/draw")
