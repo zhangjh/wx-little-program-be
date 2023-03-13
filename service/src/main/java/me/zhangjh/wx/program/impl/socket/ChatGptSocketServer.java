@@ -39,13 +39,16 @@ public class ChatGptSocketServer extends SocketServer {
         //  "index":0,"finish_reason":null}]}
         if(StringUtils.isNotEmpty(message)) {
             log.info("message: {}", message);
-            ChatResponse chatResponse = JSONObject.parseObject(message, ChatResponse.class);
-            List<ChatRet> choices = chatResponse.getChoices();
-            for (ChatRet choice : choices) {
-                List<ChatStreamRet> delta = choice.getDelta();
-                for (ChatStreamRet ret : delta) {
-                    String content = ret.getContent();
-                    super.sendMessage(userId, content);
+            if(message.startsWith("data:")) {
+                String data = message.substring(6);
+                ChatResponse chatResponse = JSONObject.parseObject(data, ChatResponse.class);
+                List<ChatRet> choices = chatResponse.getChoices();
+                for (ChatRet choice : choices) {
+                    List<ChatStreamRet> delta = choice.getDelta();
+                    for (ChatStreamRet ret : delta) {
+                        String content = ret.getContent();
+                        super.sendMessage(userId, content);
+                    }
                 }
             }
         }
