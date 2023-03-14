@@ -39,6 +39,7 @@ public class ChatGptSocketServer extends SocketServer {
 
     @Override
     public void sendMessage(String userId, String message, String bizContent) {
+        log.info("receive message: {}", message);
         // message格式：
         // {
         //  "id":"chatcmpl-6tYOeumTA8x1jMQTx5bI6s97qkrDY",
@@ -68,6 +69,7 @@ public class ChatGptSocketServer extends SocketServer {
                         if(StringUtils.isNotEmpty(content)) {
                             answerCache.append(content.trim());
                         }
+                        log.info("send message: {}", content);
                         super.sendMessage(userId, content, bizContent);
                     }
                 }
