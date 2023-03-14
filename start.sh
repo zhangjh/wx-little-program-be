@@ -3,7 +3,7 @@
 work_dir=$(pwd)
 cd "${work_dir}" || exit 1
 
-mvn clean package
+mvn clean package -U -DskipTests
 
 if [ "$?" -eq 0 ];then
   pid=$(ps -ef | grep java | grep start | awk '{print $2}')
