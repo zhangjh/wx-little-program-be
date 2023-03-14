@@ -8,10 +8,8 @@ import me.zhangjh.chatgpt.constant.RoleEnum;
 import me.zhangjh.chatgpt.dto.Message;
 import me.zhangjh.chatgpt.dto.request.ImageRequest;
 import me.zhangjh.chatgpt.dto.request.TextRequest;
-import me.zhangjh.chatgpt.dto.response.BizException;
-import me.zhangjh.chatgpt.dto.response.ChatResponse;
-import me.zhangjh.chatgpt.dto.response.ImageResponse;
-import me.zhangjh.chatgpt.dto.response.TextResponse;
+import me.zhangjh.chatgpt.dto.request.TranscriptionRequest;
+import me.zhangjh.chatgpt.dto.response.*;
 import me.zhangjh.share.response.Response;
 import me.zhangjh.share.util.HttpClientUtil;
 import me.zhangjh.wx.program.chatgpt.request.ChatRequest;
@@ -35,7 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.util.*;
-import java.util.concurrent.Executors;
 
 /**
  * @author njhxzhangjihong@126.com
@@ -315,33 +312,20 @@ public class ContentController {
         }
     }
 
-    @GetMapping("/newDraw")
-    public Response<String> getNewDraw(DrawRequest drawRequest, HttpServletRequest req) {
-        return Response.success("");
-    }
-
     @GetMapping("/getTips")
     public Response<String> getTips() {
         String tips = "已接入最新ChatGpt模型，智能升级，效果提升显著！！接口响应时间在服务高峰期间不可控，可能需要较长等待，如超时重试或更换时段~~";
         return Response.success(tips);
     }
 
-    @GetMapping("/sse")
-    public SseEmitter getSse() {
-        final SseEmitter emitter = new SseEmitter(0L);
+    @PostMapping("/transcription")
+    public Response<String> transcription(@RequestBody TranscriptionRequest request, HttpServletRequest req) {
+        String userId = req.getHeader("userId");
+        Assert.isTrue(StringUtils.isNotEmpty(userId), "userId为空");
 
-        Executors.newFixedThreadPool(1).execute(() -> {
-            try {
-                for(int i=0;i < 100;i++){
-                    emitter.send("hello" + i);
-                    Thread.sleep(1000);
-                }
-                emitter.complete();
-            } catch (Exception e) {
-                emitter.completeWithError(e);
-            }
-        });
-        return emitter;
+        TranscriptionResponse transcription = chatGptService.createTranscription(request);
+        // todo: record
+        return Response.success(transcription.getText());
     }
 
     private void recordChat(String userId, String question, String answer) {
