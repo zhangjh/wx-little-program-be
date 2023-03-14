@@ -56,6 +56,7 @@ public class ChatGptSocketServer extends SocketServer {
                 record(userId, bizContent);
                 // 清空缓存
                 answerCache = new StringBuilder();
+                return;
             }
             if(message.startsWith("data:")) {
                 String data = message.substring(6);
