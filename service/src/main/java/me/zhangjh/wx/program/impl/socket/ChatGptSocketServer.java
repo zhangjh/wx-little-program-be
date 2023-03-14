@@ -69,7 +69,6 @@ public class ChatGptSocketServer extends SocketServer {
                         if(StringUtils.isNotEmpty(content)) {
                             answerCache.append(content.trim());
                         }
-                        log.info("send message: {}", content);
                         super.sendMessage(userId, content, bizContent);
                     }
                 }
