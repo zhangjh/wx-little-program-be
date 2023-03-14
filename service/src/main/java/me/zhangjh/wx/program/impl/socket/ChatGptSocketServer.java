@@ -49,6 +49,14 @@ public class ChatGptSocketServer extends SocketServer {
         //  "choices":[{"delta":{"content":" model"},
         //  "index":0,"finish_reason":null}]}
         if(StringUtils.isNotEmpty(message)) {
+            // 结束标记
+            if("data: [DONE]".equals(message)) {
+                super.sendMessage(userId, message, bizContent);
+                // 流式响应结果在结束标记这里记录
+                record(userId, bizContent);
+                // 清空缓存
+                answerCache = new StringBuilder();
+            }
             if(message.startsWith("data:")) {
                 String data = message.substring(6);
                 ChatResponse chatResponse = JSONObject.parseObject(data, ChatResponse.class);
@@ -64,14 +72,6 @@ public class ChatGptSocketServer extends SocketServer {
                         super.sendMessage(userId, content, bizContent);
                     }
                 }
-            }
-            // 结束标记
-            if("data: [DONE]".equals(message)) {
-                super.sendMessage(userId, message, bizContent);
-                // 流式响应结果在结束标记这里记录
-                record(userId, bizContent);
-                // 清空缓存
-                answerCache = new StringBuilder();
             }
         }
     }
